@@ -59,6 +59,11 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Dark theme background override for the deep blue color in the screenshot */
+  .dark body {
+    background-color: #050814;
+  }
 }
 
 @layer utilities {
