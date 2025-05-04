@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Download, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "./mode-toggle"
 import { cn } from "@/lib/utils"
@@ -11,11 +11,11 @@ import { useMobile } from "@/hooks/use-mobile"
 const navItems = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Experience", href: "#experience" },
-  { name: "Education", href: "#education" },
+  { name: "Experience & Education", href: "#experience-education" },
   { name: "Projects", href: "#projects" },
   { name: "Certificates", href: "#certificates" },
+  { name: "GCP Badges", href: "#gcp-badges" },
+  { name: "Tools", href: "#tools" },
   { name: "Contact", href: "#contact" },
 ]
 
@@ -34,10 +34,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300",
-        scrolled ? "bg-background/80 backdrop-blur-md shadow-sm" : "bg-transparent",
-      )}
+      className={cn("fixed top-0 w-full z-50 transition-all duration-300 bg-[#050814]", scrolled ? "shadow-sm" : "")}
     >
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="#home" className="text-xl font-bold">
@@ -47,10 +44,22 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           {navItems.map((item) => (
-            <Link key={item.name} href={item.href} className="text-sm font-medium hover:text-primary transition-colors">
+            <Link
+              key={item.name}
+              href={item.href}
+              className={`text-sm font-medium transition-colors ${
+                item.name === "Home" ? "text-blue-400" : "text-white hover:text-blue-400"
+              }`}
+            >
               {item.name}
             </Link>
           ))}
+          <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer" download>
+            <Button variant="outline" size="sm">
+              <Download className="mr-2 h-4 w-4" />
+              Resume
+            </Button>
+          </Link>
           <ModeToggle />
         </nav>
 
@@ -65,18 +74,29 @@ export default function Navbar() {
 
       {/* Mobile Navigation Menu */}
       {isOpen && isMobile && (
-        <div className="fixed inset-0 top-16 bg-background z-40 p-4">
+        <div className="fixed inset-0 top-16 bg-[#050814] z-40 p-4">
           <nav className="flex flex-col space-y-4">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-lg font-medium p-2 hover:bg-muted rounded-md"
+                className="text-lg font-medium p-2 hover:bg-slate-800 rounded-md text-white"
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
+            <Link
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+              className="text-lg font-medium p-2 hover:bg-muted rounded-md flex items-center"
+              onClick={() => setIsOpen(false)}
+            >
+              <Download className="mr-2 h-4 w-4" />
+              Download Resume
+            </Link>
           </nav>
         </div>
       )}

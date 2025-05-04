@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { ArrowDown, Github, Linkedin, Mail, Phone } from "lucide-react"
+import { ArrowDown, Download, Github, Linkedin, Mail, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
@@ -53,6 +53,12 @@ export default function Hero() {
             <Link href="#projects">
               <Button size="lg" variant="outline" className="rounded-full">
                 View Projects
+              </Button>
+            </Link>
+            <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer" download>
+              <Button size="lg" variant="secondary" className="rounded-full">
+                <Download className="mr-2 h-4 w-4" />
+                Download Resume
               </Button>
             </Link>
           </div>

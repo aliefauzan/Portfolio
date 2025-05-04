@@ -1,5 +1,6 @@
-import { Github, Heart, Linkedin, Mail } from "lucide-react"
+import { Download, Github, Heart, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -16,6 +17,12 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center space-x-4">
+            <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer" download>
+              <Button variant="outline" size="sm">
+                <Download className="mr-2 h-4 w-4" />
+                Resume
+              </Button>
+            </Link>
             <Link href="mailto:afindo.mi01@gmail.com" className="hover:text-primary transition-colors">
               <Mail className="h-5 w-5" />
               <span className="sr-only">Email</span>
