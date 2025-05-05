@@ -37,16 +37,17 @@ export default function AnimatedBackground() {
     // Initialize particles
     const initParticles = () => {
       particles = []
-      const particleCount = Math.min(Math.floor(window.innerWidth * 0.04), 80)
+      // Increase particle count for more visual elements
+      const particleCount = Math.min(Math.floor(window.innerWidth * 0.06), 120)
 
       for (let i = 0; i < particleCount; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 2 + 0.5,
-          speedX: (Math.random() - 0.5) * 0.2,
-          speedY: (Math.random() - 0.5) * 0.2,
-          opacity: Math.random() * 0.3 + 0.1,
+          size: Math.random() * 2.5 + 0.5, // Slightly larger particles
+          speedX: (Math.random() - 0.5) * 0.3, // Faster movement
+          speedY: (Math.random() - 0.5) * 0.3,
+          opacity: Math.random() * 0.4 + 0.1, // More varied opacity
         })
       }
     }
@@ -105,9 +106,10 @@ export default function AnimatedBackground() {
         // Main glow
         const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius * pulseIntensity)
 
-        gradient.addColorStop(0, "rgba(59, 130, 246, 0.1)") // Light blue with low opacity
-        gradient.addColorStop(0.3, "rgba(59, 130, 246, 0.07)")
-        gradient.addColorStop(0.7, "rgba(59, 130, 246, 0.04)")
+        // More vibrant blue colors for light mode
+        gradient.addColorStop(0, "rgba(59, 130, 246, 0.18)") // Brighter blue with higher opacity
+        gradient.addColorStop(0.3, "rgba(79, 140, 255, 0.12)")
+        gradient.addColorStop(0.7, "rgba(99, 150, 255, 0.06)")
         gradient.addColorStop(1, "rgba(255, 255, 255, 0)")
 
         ctx.fillStyle = gradient
@@ -123,11 +125,28 @@ export default function AnimatedBackground() {
           radius * 0.4,
         )
 
-        secondaryGradient.addColorStop(0, "rgba(147, 197, 253, 0.06)") // Lighter blue
-        secondaryGradient.addColorStop(0.5, "rgba(147, 197, 253, 0.03)")
+        secondaryGradient.addColorStop(0, "rgba(147, 197, 253, 0.12)") // Brighter lighter blue
+        secondaryGradient.addColorStop(0.5, "rgba(147, 197, 253, 0.06)")
         secondaryGradient.addColorStop(1, "rgba(255, 255, 255, 0)")
 
         ctx.fillStyle = secondaryGradient
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+        // Add a third accent glow with a hint of purple for more color variety
+        const accentGradient = ctx.createRadialGradient(
+          centerX - 100 + Math.sin(time * 0.0005) * 30,
+          centerY + 100 + Math.cos(time * 0.0006) * 20,
+          0,
+          centerX - 100 + Math.sin(time * 0.0005) * 30,
+          centerY + 100 + Math.cos(time * 0.0006) * 20,
+          radius * 0.3,
+        )
+
+        accentGradient.addColorStop(0, "rgba(139, 92, 246, 0.08)") // Purple accent
+        accentGradient.addColorStop(0.5, "rgba(139, 92, 246, 0.04)")
+        accentGradient.addColorStop(1, "rgba(255, 255, 255, 0)")
+
+        ctx.fillStyle = accentGradient
         ctx.fillRect(0, 0, canvas.width, canvas.height)
       }
     }
@@ -152,10 +171,18 @@ export default function AnimatedBackground() {
         if (particle.y > canvas.height) particle.y = 0
 
         // Draw particle
-        const particleColor =
-          theme === "dark"
-            ? `rgba(255, 255, 255, ${particle.opacity * 0.4})`
-            : `rgba(59, 130, 246, ${particle.opacity * 0.25})`
+        let particleColor
+        if (theme === "dark") {
+          particleColor = `rgba(255, 255, 255, ${particle.opacity * 0.4})`
+        } else {
+          // Use a mix of blue and purple particles in light mode
+          const isBlue = index % 3 !== 0 // 2/3 of particles are blue, 1/3 are purple
+          if (isBlue) {
+            particleColor = `rgba(59, 130, 246, ${particle.opacity * 0.35})`
+          } else {
+            particleColor = `rgba(139, 92, 246, ${particle.opacity * 0.3})`
+          }
+        }
 
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
@@ -168,14 +195,23 @@ export default function AnimatedBackground() {
           const dy = particles[j].y - particle.y
           const distance = Math.sqrt(dx * dx + dy * dy)
 
-          if (distance < 80) {
+          if (distance < 100) {
+            // Increased connection distance
             ctx.beginPath()
             ctx.moveTo(particle.x, particle.y)
             ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.strokeStyle =
-              theme === "dark"
-                ? `rgba(255, 255, 255, ${0.05 * (1 - distance / 80)})`
-                : `rgba(59, 130, 246, ${0.05 * (1 - distance / 80)})`
+
+            if (theme === "dark") {
+              ctx.strokeStyle = `rgba(255, 255, 255, ${0.06 * (1 - distance / 100)})`
+            } else {
+              // Gradient lines in light mode
+              const isBlue = (index + j) % 3 !== 0
+              if (isBlue) {
+                ctx.strokeStyle = `rgba(59, 130, 246, ${0.08 * (1 - distance / 100)})`
+              } else {
+                ctx.strokeStyle = `rgba(139, 92, 246, ${0.07 * (1 - distance / 100)})`
+              }
+            }
             ctx.stroke()
           }
         }
