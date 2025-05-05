@@ -14,7 +14,7 @@ interface Particle {
 
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const { theme } = useTheme()
+  const { theme, systemTheme } = useTheme()
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -53,7 +53,7 @@ export default function AnimatedBackground() {
 
     // Draw shining light effect
     const drawShiningLight = () => {
-      const isDark = theme === "dark"
+      const isDark = theme === "dark" || (theme === "system" && systemTheme === "dark")
 
       // Center coordinates for the main glow
       const centerX = canvas.width * 0.5
@@ -192,7 +192,7 @@ export default function AnimatedBackground() {
       window.removeEventListener("resize", resizeCanvas)
       cancelAnimationFrame(animationFrameId)
     }
-  }, [theme])
+  }, [theme, systemTheme])
 
   return (
     <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none" aria-hidden="true" />
