@@ -16,8 +16,31 @@ COPY . .
 # Build the Next.js application
 RUN npm run build
 
-# Stage 2: Run the application
-FROM node:18-alpine AS runner
+# Stage 2: Development environment with nodemon
+FROM node:18-alpine AS development
+
+WORKDIR /app
+
+# Install nodemon globally
+RUN npm install -g nodemon
+
+# Copy package files
+COPY package*.json ./
+
+# Install all dependencies including devDependencies
+RUN npm install
+
+# Copy source code
+COPY . .
+
+# Expose development port
+EXPOSE 3000
+
+# Start development server with nodemon
+CMD ["nodemon", "--watch", ".", "--ext", "js,jsx,ts,tsx", "--exec", "npm", "run", "dev"]
+
+# Stage 3: Production environment
+FROM node:18-alpine AS production
 
 WORKDIR /app
 
