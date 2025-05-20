@@ -191,10 +191,15 @@ export default function GCPBadges() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
+                    whileHover={{ 
+                      y: -5,
+                      transition: { duration: 0.2 } 
+                    }}
                   >
-                    <Card className="h-full overflow-hidden hover:shadow-md transition-all duration-300 hover:border-primary/30 group">
+                    <Card className="h-full overflow-hidden hover:shadow-md transition-all duration-300 border-t-4 border-t-primary/10 hover:border-t-primary/80 group">
                       <CardContent className="p-4 flex flex-col h-full">
-                        <div className="bg-muted/30 rounded-lg p-4 mb-4 flex items-center justify-center">
+                        <div className="bg-muted/30 rounded-lg p-4 mb-4 flex items-center justify-center relative">
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-primary/5 rounded-lg transition-opacity duration-300"></div>
                           <div className="relative w-12 h-12">
                             <Image
                               src="/placeholder.svg?height=48&width=48"
@@ -231,10 +236,15 @@ export default function GCPBadges() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
+                    whileHover={{ 
+                      y: -5,
+                      transition: { duration: 0.2 } 
+                    }}
                   >
-                    <Card className="h-full overflow-hidden hover:shadow-md transition-all duration-300 hover:border-primary/30 group">
+                    <Card className="h-full overflow-hidden hover:shadow-md transition-all duration-300 border-t-4 border-t-primary/10 hover:border-t-primary/80 group">
                       <CardContent className="p-4 flex flex-col h-full">
-                        <div className="bg-muted/30 rounded-lg p-4 mb-4 flex items-center justify-center">
+                        <div className="bg-muted/30 rounded-lg p-4 mb-4 flex items-center justify-center relative">
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-primary/5 rounded-lg transition-opacity duration-300"></div>
                           <div className="relative w-12 h-12">
                             <Image
                               src="/placeholder.svg?height=48&width=48"

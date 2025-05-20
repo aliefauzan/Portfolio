@@ -189,9 +189,14 @@ export default function Projects() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-background rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+                className="bg-background rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group"
+                whileHover={{ 
+                  y: -5,
+                  transition: { duration: 0.2 } 
+                }}
               >
-                <div className="relative h-48 overflow-hidden bg-muted">
+                <div className="relative h-48 overflow-hidden bg-muted border-t-4 border-t-primary/10 group-hover:border-t-primary/80 transition-all duration-300">
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-primary/5 transition-opacity duration-300 pointer-events-none z-10"></div>
                   <Image
                     src={project.image || "/placeholder.svg"}
                     alt={project.imageAlt}

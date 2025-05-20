@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
+import { Slider } from "@/components/ui/slider"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -756,51 +757,29 @@ export default function Certificates() {
           {/* Custom visible scrollbar */}
           {filteredCertificates.length > 0 && (
             <div className="relative mt-2 mb-6 px-4">
-              <div className="h-3 bg-muted/30 rounded-full w-full hover:bg-muted/40 transition-colors">
-                <div 
-                  className="absolute top-0 left-0 h-3 bg-primary/60 hover:bg-primary/80 rounded-full transition-all duration-100"
-                  style={{ width: `${scrollPercentage}%` }}
-                ></div>
-                
-                {/* Draggable thumb */}
-                <div 
-                  className="absolute top-0 left-0 h-5 w-5 -mt-1 bg-primary hover:bg-primary/80 rounded-full shadow-md cursor-grab active:cursor-grabbing active:scale-110 transition-all"
-                  style={{ 
-                    left: `calc(${scrollPercentage}% - ${scrollPercentage > 0 ? 10 : 0}px)` 
-                  }}
-                  onMouseDown={(e) => {
-                    e.preventDefault()
-                    
-                    const handleMouseMove = (moveEvent: MouseEvent) => {
-                      if (scrollContainerRef.current) {
-                        const container = scrollContainerRef.current
-                        const trackWidth = e.currentTarget.parentElement!.getBoundingClientRect().width
-                        const clickPosition = (moveEvent.clientX - e.currentTarget.parentElement!.getBoundingClientRect().left) / trackWidth
-                        
-                        // Calculate new scroll position
-                        const newScrollLeft = clickPosition * (container.scrollWidth - container.clientWidth)
-                        container.scrollLeft = newScrollLeft
-                      }
-                    }
-                    
-                    const handleMouseUp = () => {
-                      document.removeEventListener('mousemove', handleMouseMove)
-                      document.removeEventListener('mouseup', handleMouseUp)
-                    }
-                    
-                    document.addEventListener('mousemove', handleMouseMove)
-                    document.addEventListener('mouseup', handleMouseUp)
-                  }}
-                ></div>
-              </div>
+              <Slider
+                value={[scrollPercentage]}
+                min={0}
+                max={100}
+                step={0.1}
+                onValueChange={(value) => {
+                  if (scrollContainerRef.current) {
+                    const container = scrollContainerRef.current;
+                    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+                    container.scrollLeft = (value[0] / 100) * maxScrollLeft;
+                  }
+                }}
+                className="py-1"
+                aria-label="Scroll certificates"
+              />
             </div>
           )}
 
-          {/* Click and drag instruction */}
+          {/* Click and drag instruction - Update text to include slider */}
           {filteredCertificates.length > 0 && (
             <div className="flex items-center justify-center gap-3 mb-6 text-muted-foreground text-sm">
               <MousePointer className="h-4 w-4" />
-              <span>Click and drag horizontally to scroll</span>
+              <span>Drag slider or certificates to scroll</span>
               <ChevronRight className="h-4 w-4" />
             </div>
           )}
