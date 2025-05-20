@@ -157,7 +157,7 @@ export default function GCPBadges() {
   })
 
   return (
-    <section id="gcp-badges" className="py-20 bg-gradient-to-b from-muted/30 to-background">
+    <section id="gcp-badges" className="py-20 bg-gradient-to-br from-background to-muted/20">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}

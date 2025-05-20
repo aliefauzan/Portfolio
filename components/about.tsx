@@ -37,9 +37,8 @@ export default function About() {
   ]
 
   return (
-    <section id="about" className="py-16 relative overflow-hidden">
+    <section id="about" className="py-16 relative overflow-hidden bg-gradient-to-r from-background to-muted/20">
       {/* Decorative background elements */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/5 to-transparent -z-10"></div>
       <div className="absolute top-20 right-20 w-64 h-64 rounded-full bg-primary/5 blur-3xl -z-10"></div>
 
       <div className="container mx-auto px-4">

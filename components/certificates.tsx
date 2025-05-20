@@ -488,7 +488,7 @@ export default function Certificates() {
   }, [filteredCertificates])
 
   return (
-    <section id="certificates" className="py-20 bg-gradient-to-b from-background to-muted/20">
+    <section id="certificates" className="py-20 bg-gradient-to-b from-background/10 to-muted/10">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}

@@ -196,7 +196,7 @@ export default function Tools() {
   })
 
   return (
-    <section id="tools" className="py-20 bg-primary/5">
+    <section id="tools" className="py-20 bg-gradient-to-b from-background to-muted/20">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
