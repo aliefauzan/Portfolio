@@ -7,74 +7,7 @@ import { GraduationCap, Briefcase } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-// 3D Interactive Card Component
-interface Interactive3DCardProps {
-  children: React.ReactNode
-  className?: string
-  glowEffect?: boolean
-}
-
-const Interactive3DCard = ({ children, className = "", glowEffect = false }: Interactive3DCardProps) => {
-  const [rotateX, setRotateX] = useState(0)
-  const [rotateY, setRotateY] = useState(0)
-  const [isHovered, setIsHovered] = useState(false)
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    const centerX = rect.width / 2
-    const centerY = rect.height / 2
-    const rotateX = (y - centerY) / 8
-    const rotateY = (centerX - x) / 8
-
-    setRotateX(rotateX)
-    setRotateY(rotateY)
-  }
-
-  const handleMouseEnter = () => {
-    setIsHovered(true)
-  }
-
-  const handleMouseLeave = () => {
-    setRotateX(0)
-    setRotateY(0)
-    setIsHovered(false)
-  }
-
-  return (
-    <motion.div
-      className={`card-3d ${glowEffect ? 'iridescent-glow' : ''} ${className}`}
-      style={{
-        transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
-        transformStyle: "preserve-3d",
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      whileHover={{
-        scale: 1.02,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 300,
-        damping: 20,
-      }}
-    >
-      {/* Holographic overlay */}
-      <div 
-        className={`absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none rounded-lg ${
-          isHovered ? 'opacity-20' : 'opacity-0'
-        }`}
-      >
-        <div className="w-full h-full bg-gradient-to-br from-purple-400 via-pink-400 to-blue-400 mix-blend-overlay rounded-lg" />
-      </div>
-      
-      {children}
-    </motion.div>
-  )
-}
+import { Interactive3DCard } from "@/components/ui/interactive-3d-card"
 
 export default function ExperienceEducation() {
   const [ref, inView] = useInView({
@@ -93,7 +26,7 @@ export default function ExperienceEducation() {
         >
 <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
   <span className="relative inline-block"> {/* Wrapper for text and underline */}
-    Experience & <span className="text-primary">Education</span>
+    Experience & <span className="rainbow-text">Education</span>
     <motion.div
       className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
       initial={{ width: "0%" }}
