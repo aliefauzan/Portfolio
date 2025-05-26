@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence, useAnimation } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { Award, Calendar, ChevronLeft, ChevronRight, ExternalLink, Filter, Info, MousePointer, School, Search } from "lucide-react"
+import { Award, Calendar, ChevronLeft, ChevronRight, ExternalLink, FilterX, Info, MousePointer, School, Search } from "lucide-react" // Added FilterX
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import {
@@ -13,18 +13,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogFooter, // Added DialogFooter for consistency
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuCheckboxItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import Link from "next/link"
 import Image from "next/image"
+import { Interactive3DCard } from "@/components/ui/interactive-3d-card" // Assuming this path is correct
 
 const certificates = [
   {
@@ -309,184 +305,173 @@ const categories = [
   "Programming",
   "DevOps",
   "Machine Learning",
-]
+];
+
+const categoryKeywordsMap: Record<string, string[]> = {
+  "Cloud Computing": ["AWS", "Google Cloud", "Cloud", "Cloud Architecture", "GCP", "App Engine", "Cloud Run", "Cloud SQL", "Vertex AI", "BigQuery ML", "Cloud Functions"],
+  "Backend": ["Back-End", "Backend", "Node.js", "Express.js", "API", "Server", "Database", "RESTful API", "NoSQL", "Authentication"],
+  "Programming": ["Programming", "JavaScript", "Logic", "Algorithms", "C++", "Dart", "Python", "ES6+", "OOP", "DOM Manipulation", "Data Structures", "File I/O", "Console Application"],
+  "DevOps": ["DevOps", "Docker", "Kubernetes", "CI/CD", "Git", "GitHub", "Infrastructure as Code", "Version Control", "MLOps"],
+  "Machine Learning": ["Machine Learning", "AI", "ML", "Deep Learning", "NLP", "TensorFlow", "Neural Networks", "Data for AI", "AI Ethics", "Vertex AI", "AutoML", "BigQuery ML", "ML APIs"],
+};
+
 
 export default function Certificates() {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
-  })
+  });
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const [isHovered, setIsHovered] = useState(false)
-  const [isDragging, setIsDragging] = useState(false)
-  const [startX, setStartX] = useState(0)
-  const [scrollLeft, setScrollLeft] = useState(0)
-  const [activeCategory, setActiveCategory] = useState("All")
-  const [initialLoad, setInitialLoad] = useState(true)
-  const arrowControls = useAnimation()
-  const scrollIndicatorControls = useAnimation()
-  const [scrollPercentage, setScrollPercentage] = useState(0)
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [initialLoad, setInitialLoad] = useState(true);
+  const arrowControls = useAnimation();
+  const scrollIndicatorControls = useAnimation();
+  const [scrollPercentage, setScrollPercentage] = useState(0);
 
-  // Filter certificates based on category
   const filteredCertificates = certificates.filter((cert) => {
-    // Filter by category
-    const matchesCategory =
-      activeCategory === "All" ||
-      cert.skills.some((skill) => {
-        if (activeCategory === "Cloud Computing") 
-          return ["AWS", "Google Cloud", "Cloud", "Cloud Architecture"].some(term => skill.includes(term))
-        if (activeCategory === "Backend") 
-          return ["Back-End", "Backend", "Node.js", "Express.js", "API", "Server", "Database"].some(term => skill.includes(term))
-        if (activeCategory === "Programming") 
-          return ["Programming", "JavaScript", "Logic", "Algorithms"].some(term => skill.includes(term))
-        if (activeCategory === "DevOps") 
-          return ["DevOps", "Docker", "Kubernetes", "CI/CD"].some(term => skill.includes(term))
-        if (activeCategory === "Machine Learning") 
-          return ["Machine Learning", "AI", "ML", "Deep Learning"].some(term => skill.includes(term))
-        return false
-      })
+    let matchesCategory = activeCategory === "All";
+    if (!matchesCategory) {
+      const keywordsForCategory = categoryKeywordsMap[activeCategory];
+      if (keywordsForCategory) {
+        matchesCategory = cert.skills.some(skill => 
+          keywordsForCategory.some(term => skill.toLowerCase().includes(term.toLowerCase()))
+        );
+      }
+    }
 
-    return matchesCategory
-  })
+    const searchLower = searchTerm.toLowerCase();
+    const matchesSearch = searchTerm === "" || 
+      cert.title.toLowerCase().includes(searchLower) ||
+      cert.issuer.toLowerCase().includes(searchLower) ||
+      cert.description.toLowerCase().includes(searchLower) ||
+      (cert.detailedDescription && cert.detailedDescription.toLowerCase().includes(searchLower)) ||
+      cert.skills.some(skill => skill.toLowerCase().includes(searchLower));
+
+    return matchesCategory && matchesSearch;
+  });
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
-      const { current: container } = scrollContainerRef
-      const scrollAmount = 340 // Approximate width of a card + margin
-
-      if (direction === "left") {
-        container.scrollBy({ left: -scrollAmount, behavior: "smooth" })
-      } else {
-        container.scrollBy({ left: scrollAmount, behavior: "smooth" })
-      }
+      const { current: container } = scrollContainerRef;
+      const scrollAmount = container.clientWidth * 0.8 > 340 ? 340 : container.clientWidth * 0.8;
+      container.scrollBy({ left: direction === "left" ? -scrollAmount : scrollAmount, behavior: "smooth" });
     }
-  }
+  };
 
-  // Mouse drag handlers for scrolling
   const handleMouseDown = (e: React.MouseEvent) => {
-    // Only initiate drag if the click is on the card background or scroll container, not on text elements
-    if (
-      e.target instanceof Element && 
-      !['P', 'SPAN', 'H3', 'H4', 'BUTTON', 'A', 'DIV.badge'].some(selector => 
-        e.target instanceof Element && 
-        (e.target.tagName === selector || e.target.classList.contains('badge') || 
-         e.target.closest('button') || e.target.closest('a'))
-      )
-    ) {
-      setIsDragging(true)
-      setStartX(e.pageX - scrollContainerRef.current!.offsetLeft)
-      setScrollLeft(scrollContainerRef.current!.scrollLeft)
+    if (scrollContainerRef.current && e.target instanceof Element &&
+        !e.target.closest('button, a, [role="dialog"], [role="slider"], input, label')) {
+      setIsDragging(true);
+      setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+      setScrollLeft(scrollContainerRef.current.scrollLeft);
     }
-  }
+  };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return
-    e.preventDefault()
-    const x = e.pageX - scrollContainerRef.current!.offsetLeft
-    const walk = (x - startX) * 2 // Scroll speed multiplier
-    scrollContainerRef.current!.scrollLeft = scrollLeft - walk
-  }
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
 
-  const handleMouseUp = () => {
-    setIsDragging(false)
-  }
+  const handleMouseUpOrLeave = () => {
+    if (isDragging) {
+      setIsDragging(false);
+    }
+  };
+  
+  useEffect(() => {
+    const body = document.body;
+    const scrollContainer = scrollContainerRef.current;
+    if (isDragging) {
+      body.classList.add('dragging-scroll');
+      if (scrollContainer) scrollContainer.classList.add('dragging-scroll-element');
+    } else {
+      body.classList.remove('dragging-scroll');
+      if (scrollContainer) scrollContainer.classList.remove('dragging-scroll-element');
+    }
+    return () => {
+      body.classList.remove('dragging-scroll');
+    };
+  }, [isDragging]);
 
-  const handleMouseLeave = () => {
-    setIsDragging(false)
-    setIsHovered(false)
-  }
 
-  // Automatic scroll detection to show/hide navigation buttons
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(false)
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   const checkScrollable = () => {
-    const container = scrollContainerRef.current
+    const container = scrollContainerRef.current;
     if (container) {
-      setCanScrollLeft(container.scrollLeft > 0)
-      setCanScrollRight(container.scrollLeft < container.scrollWidth - container.clientWidth - 10)
+      const hasHorizontalScrollbar = container.scrollWidth > container.clientWidth;
+      setCanScrollLeft(container.scrollLeft > 5 && hasHorizontalScrollbar);
+      setCanScrollRight(container.scrollLeft < container.scrollWidth - container.clientWidth - 5 && hasHorizontalScrollbar);
+    } else {
+      setCanScrollLeft(false);
+      setCanScrollRight(false);
     }
-  }
-
-  // Update scroll percentage on scroll
+  };
+  
   const updateScrollPercentage = () => {
     if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
-      const maxScrollLeft = scrollWidth - clientWidth
-      const percentage = maxScrollLeft > 0 ? (scrollLeft / maxScrollLeft) * 100 : 0
-      setScrollPercentage(percentage)
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const maxScrollLeft = scrollWidth - clientWidth;
+      const percentage = maxScrollLeft > 0 ? (scrollLeft / maxScrollLeft) * 100 : 0;
+      setScrollPercentage(percentage);
     }
-  }
+  };
 
-  // Subtle auto-scroll animation on initial load
   useEffect(() => {
     if (inView && initialLoad && scrollContainerRef.current) {
-      const container = scrollContainerRef.current
-
-      // Only show the animation if there's content to scroll
-      if (container.scrollWidth > container.clientWidth) {
-        // Wait a moment after component appears
+      const container = scrollContainerRef.current;
+      if (container.scrollWidth > container.clientWidth && filteredCertificates.length > 0) {
         const timer = setTimeout(() => {
-          // Animate right arrow
           arrowControls.start({
-            x: [0, 10, 0],
-            opacity: [0.2, 1, 0.2],
-            transition: { 
-              duration: 1.5,
-              repeat: 2,
-              repeatType: "reverse" 
-            }
-          })
-
-          // Subtle scroll hint
-          const smallScroll = Math.min(200, container.scrollWidth * 0.1)
-          container.scrollTo({ left: smallScroll, behavior: 'smooth' })
-          
-          // Then scroll back after a delay
+            x: [0, 5, 0, 5, 0], opacity: [0.5, 1, 0.5, 1, 0.5],
+            transition: { duration: 1.5, times: [0, 0.2, 0.4, 0.6, 1] }
+          });
+          const smallScroll = Math.min(150, container.scrollWidth * 0.1);
+          container.scrollTo({ left: smallScroll, behavior: 'smooth' });
           setTimeout(() => {
-            container.scrollTo({ left: 0, behavior: 'smooth' })
-            setInitialLoad(false)
-
-            // Show "swipe to scroll" indicator
-            scrollIndicatorControls.start({
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.5 }
-            })
-
-            // Hide indicator after 4 seconds
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+            setInitialLoad(false);
+            scrollIndicatorControls.start({ opacity: 1, y: 0, transition: { duration: 0.5 } });
             setTimeout(() => {
-              scrollIndicatorControls.start({
-                opacity: 0,
-                y: 10,
-                transition: { duration: 0.5 }
-              })
-            }, 4000)
-          }, 1000)
-        }, 500)
-        
-        return () => clearTimeout(timer)
+              scrollIndicatorControls.start({ opacity: 0, y: 10, transition: { duration: 0.5 } });
+            }, 3000);
+          }, 800);
+        }, 500);
+        return () => clearTimeout(timer);
+      } else {
+        setInitialLoad(false);
+        scrollIndicatorControls.start({ opacity: 0, y: 10, transition: { duration: 0.1 } });
       }
     }
-  }, [inView, initialLoad, arrowControls, scrollIndicatorControls])
+  }, [inView, initialLoad, arrowControls, scrollIndicatorControls, filteredCertificates.length]);
 
   useEffect(() => {
-    const container = scrollContainerRef.current
+    const container = scrollContainerRef.current;
     if (container) {
-      checkScrollable()
-      container.addEventListener("scroll", () => {
-        checkScrollable()
-        updateScrollPercentage()
-      })
-      window.addEventListener("resize", checkScrollable)
+      checkScrollable(); 
+      updateScrollPercentage(); 
+      const handleScrollAndResize = () => {
+        checkScrollable();
+        updateScrollPercentage();
+      };
+      container.addEventListener("scroll", handleScrollAndResize);
+      window.addEventListener("resize", handleScrollAndResize);
       
       return () => {
-        container.removeEventListener("scroll", checkScrollable)
-        window.removeEventListener("resize", checkScrollable)
-      }
+        container.removeEventListener("scroll", handleScrollAndResize);
+        window.removeEventListener("resize", handleScrollAndResize);
+      };
     }
-  }, [filteredCertificates])
+  }, [filteredCertificates, activeCategory, searchTerm]);
 
   return (
     <section id="certificates" className="py-20 bg-gradient-to-b from-background/10 to-muted/10">
@@ -497,24 +482,48 @@ export default function Certificates() {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">
-            <span className="text-primary">Certificates</span> & Achievements
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center rainbow-text">
+            <span className="relative inline-block">
+              <span className="text-primary">Certificates</span> & Achievements
+              <motion.div
+                className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+                initial={{ width: "0%" }}
+                animate={inView ? { width: "100%" } : { width: "0%" }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              ></motion.div>
+            </span>
           </h2>
           
           <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
-            Professional certifications and achievements that demonstrate my technical expertise and continuous learning
+            Professional certifications and achievements that demonstrate my technical expertise and continuous learning.
           </p>
 
-          {/* Centered Category Filters */}
-          <div className="flex justify-center mb-8">
-            <div className="flex flex-wrap justify-center gap-2">
+          <div className="mb-6 flex justify-center">
+            <div className="relative w-full max-w-md">
+              <Input 
+                type="text" 
+                placeholder="Search certificates by title, skill, etc..." 
+                value={searchTerm} 
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 py-3 text-base rounded-full shadow-sm focus:ring-primary focus:border-primary border-border"
+              />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            </div>
+          </div>
+
+          <div className="flex justify-center mb-10">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 bg-muted/30 p-1 rounded-lg shadow">
               {categories.map((category) => (
                 <Button
                   key={category}
-                  variant={activeCategory === category ? "default" : "outline"}
+                  variant="ghost"
                   size="sm"
-                  onClick={() => setActiveCategory(category)}
-                  className="rounded-full"
+                  onClick={() => { setActiveCategory(category); scrollContainerRef.current?.scrollTo({ left: 0, behavior: 'smooth' }); }}
+                  className={`rounded-md transition-all duration-300 text-xs sm:text-sm px-3 py-2 ${
+                    activeCategory === category 
+                      ? "bg-gradient-to-r from-blue-500 to-purple-500 text-primary-foreground shadow-md hover:from-blue-600 hover:to-purple-600" 
+                      : "text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                  }`}
                 >
                   {category}
                 </Button>
@@ -523,245 +532,203 @@ export default function Certificates() {
           </div>
 
           <div 
-            className="relative" 
-            onMouseEnter={() => setIsHovered(true)} 
-            onMouseLeave={handleMouseLeave}
+            className="relative"
           >
-            {/* Left scroll indicator - always visible */}
-            {canScrollLeft && (
-              <div
-                className="absolute left-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-r from-background/80 to-transparent flex items-center justify-start pl-4"
-              >
-                <button 
+            <AnimatePresence>
+              {canScrollLeft && (
+                <motion.button 
+                  initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.2 }}
                   onClick={() => scroll("left")}
-                  className="bg-background/90 hover:bg-background p-2 rounded-full shadow-md transition-colors"
+                  className="absolute left-0 md:-left-5 top-1/2 -translate-y-1/2 z-20 bg-card/80 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground p-2 rounded-full shadow-lg border border-border"
+                  aria-label="Scroll left"
                 >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-              </div>
-            )}
+                  <ChevronLeft className="h-6 w-6" />
+                </motion.button>
+              )}
+            </AnimatePresence>
 
-            {/* Right scroll indicator - always visible */}
-            {canScrollRight && (
-              <div 
-                className="absolute right-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-l from-background/80 to-transparent flex items-center justify-end pr-4"
-              >
-                <button 
+            <AnimatePresence>
+              {canScrollRight && (
+                <motion.button 
+                  initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.2 }}
                   onClick={() => scroll("right")}
-                  className="bg-background/90 hover:bg-background p-2 rounded-full shadow-md transition-colors"
+                  className="absolute right-0 md:-right-5 top-1/2 -translate-y-1/2 z-20 bg-card/80 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground p-2 rounded-full shadow-lg border border-border"
+                  aria-label="Scroll right"
                 >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
-              </div>
-            )}
+                  <motion.div animate={arrowControls}>
+                    <ChevronRight className="h-6 w-6" />
+                  </motion.div>
+                </motion.button>
+              )}
+            </AnimatePresence>
 
             <div
               ref={scrollContainerRef}
-              className="flex overflow-x-auto pb-6 scroll-smooth custom-scrollbar"
+              className="flex overflow-x-auto pb-8 pt-2 scroll-smooth custom-scrollbar -mx-4 px-4"
               style={{ WebkitOverflowScrolling: "touch" }}
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseLeave}
-              onScroll={updateScrollPercentage}
+              onMouseUp={handleMouseUpOrLeave}
+              onMouseLeave={handleMouseUpOrLeave}
+              onScroll={updateScrollPercentage} 
             >
-              <AnimatePresence>
+              <AnimatePresence mode="popLayout">
                 {filteredCertificates.length === 0 ? (
                   <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="flex justify-center items-center w-full py-10"
+                    layout
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    className="flex flex-col justify-center items-center w-full py-10 text-center min-h-[300px]"
                   >
-                    <p className="text-muted-foreground">No certificates match your filters</p>
+                    <FilterX className="h-16 w-16 text-muted-foreground/50 mb-4" />
+                    <p className="text-muted-foreground text-lg">No certificates match your filters.</p>
+                    <p className="text-sm text-muted-foreground/80">Try adjusting your search or category selection.</p>
                   </motion.div>
                 ) : (
                   filteredCertificates.map((cert, index) => (
                     <motion.div
+                      layout 
                       key={cert.certificateId}
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.3, delay: index * 0.05 }}
-                      className="flex-shrink-0 w-80 mx-4 first:ml-0 last:mr-0"
-                      whileHover={{ 
-                        y: -5,
-                        transition: { duration: 0.2 } 
-                      }}
+                      initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.3, delay: index * 0.03 }}
+                      className="flex-shrink-0 w-[320px] sm:w-[340px] mx-3 first:ml-0 last:mr-0 floating"
+                      whileHover={{ y: -6, transition: { duration: 0.2 } }}
                     >
-                      <Card className="h-full hover:shadow-md transition-all duration-300 border-t-4 border-t-primary/80 hover:border-t-primary relative flex flex-col">
-                        {/* Drag handle with visual indicator on hover */}
-                        <div 
-                          className="absolute inset-0 z-[5] cursor-grab opacity-0 hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none"
-                        >
-                          <div className="bg-primary/10 backdrop-blur-sm rounded-full px-3 py-1 shadow-sm">
-                            <div className="flex items-center gap-2 text-xs text-primary">
-                              <MousePointer className="h-3 w-3" />
-                              <span>Drag to scroll</span>
+                      <Interactive3DCard intensity="low" className="h-full">
+                        <Card className="h-full holographic-border bg-gradient-to-br from-card/90 via-card/80 to-primary/5 backdrop-blur-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 relative flex flex-col group shadow-lg">
+                          <CardHeader className="flex flex-row items-start gap-3 pb-3 pt-4 px-4 relative z-[1]">
+                            <div className="p-2.5 rounded-lg bg-gradient-to-tr from-primary/10 via-primary/5 to-transparent border border-primary/20 group-hover:scale-105 transition-transform duration-300 iridescent-glow">
+                              <Award className="h-6 w-6 text-primary flex-shrink-0" />
                             </div>
-                          </div>
-                        </div>
-                        
-                        {/* Invisible drag handle that covers the entire card */}
-                        <div 
-                          className="absolute inset-0 z-[1] cursor-grab"
-                          onMouseDown={handleMouseDown}
-                        ></div>
-                        <CardHeader className="flex flex-row items-start gap-4 pb-4 relative z-[2]">
-                          <Award className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                          <div className="space-y-1">
-                            <CardTitle className="text-lg line-clamp-2 min-h-[56px]">{cert.title}</CardTitle>
-                            <CardDescription className="flex items-center gap-1">
-                              <School className="h-3 w-3" />
-                              <span>{cert.issuer}</span>
-                            </CardDescription>
-                            <CardDescription className="flex items-center gap-1">
-                              <Calendar className="h-3 w-3" />
-                              <span>{cert.date}</span>
-                            </CardDescription>
-                          </div>
-                        </CardHeader>
-                        <CardContent className="flex flex-col flex-grow relative z-[2]">
-                          <p className="text-muted-foreground text-sm line-clamp-3 mb-3 min-h-[4.5rem]">{cert.description}</p>
-                          <div className="flex flex-wrap gap-1 mt-auto min-h-[30px]">
-                            {cert.skills.slice(0, 3).map((skill, i) => (
-                              <Badge key={i} variant="secondary" className="text-xs h-6 bg-secondary/70">
-                                {skill}
-                              </Badge>
-                            ))}
-                            {cert.skills.length > 3 && (
-                              <Badge variant="secondary" className="text-xs h-6 bg-secondary/40">
-                                +{cert.skills.length - 3}
-                              </Badge>
-                            )}
-                          </div>
-                        </CardContent>
-                        <CardFooter className="flex justify-between pt-4 pb-4 relative z-[2] mt-auto border-t border-muted/10">
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <Button variant="outline" size="sm" className="w-[100px] h-10 bg-transparent border-muted/30">
-                                <Info className="mr-2 h-4 w-4" />
-                                Details
-                              </Button>
-                            </DialogTrigger>
-                            <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
-                              <DialogHeader>
-                                <DialogTitle className="text-2xl">{cert.title}</DialogTitle>
-                                <DialogDescription className="text-sm text-muted-foreground">
-                                  {cert.issuer} • {cert.date}
-                                </DialogDescription>
-                              </DialogHeader>
-
-                              <div className="mt-4 space-y-4">
-                                <div className="relative h-48 w-full overflow-hidden rounded-lg bg-muted">
-                                  <Image
-                                    src={cert.imageUrl || "/placeholder.svg"}
-                                    alt={`${cert.title} Certificate`}
-                                    fill
-                                    className="object-cover"
-                                  />
-                                </div>
-
-                                <div>
-                                  <h4 className="text-lg font-semibold mb-2">Description</h4>
-                                  <p className="text-sm">{cert.detailedDescription}</p>
-                                </div>
-
-                                <div>
-                                  <h4 className="text-lg font-semibold mb-2">Course Materials</h4>
-                                  <ul className="space-y-2 text-sm list-disc pl-5">
-                                    {cert.courseMaterials?.map((material, idx) => (
-                                      <li key={idx}>{material}</li>
-                                    ))}
-                                  </ul>
-                                </div>
-
-                                {cert.evaluation && (
-                                  <div>
-                                    <h4 className="text-lg font-semibold mb-2">Evaluation</h4>
-                                    <ul className="space-y-2 text-sm list-disc pl-5">
-                                      {cert.evaluation.map((item, idx) => (
-                                        <li key={idx}>{item}</li>
-                                      ))}
-                                    </ul>
+                            <div className="space-y-0.5 flex-1">
+                              <CardTitle className="text-md sm:text-lg line-clamp-2 min-h-[40px] sm:min-h-[48px] group-hover:text-primary transition-colors leading-tight">{cert.title}</CardTitle>
+                              <CardDescription className="flex items-center gap-1.5 text-xs">
+                                <School className="h-3.5 w-3.5" />
+                                <span>{cert.issuer}</span>
+                              </CardDescription>
+                              <CardDescription className="flex items-center gap-1.5 text-xs">
+                                <Calendar className="h-3.5 w-3.5" />
+                                <span>{cert.date}</span>
+                              </CardDescription>
+                            </div>
+                          </CardHeader>
+                          <CardContent className="flex flex-col flex-grow px-4 pb-3 relative z-[1]">
+                            <p className="text-muted-foreground text-sm line-clamp-3 mb-3 min-h-[60px]">{cert.description}</p>
+                            <div className="flex flex-wrap gap-1.5 mt-auto min-h-[28px]">
+                              {cert.skills.slice(0, 3).map((skill, i) => (
+                                <Badge key={i} variant="secondary" className="text-xs px-1.5 py-0.5 bg-primary/10 text-primary/90 border border-primary/20">
+                                  {skill}
+                                </Badge>
+                              ))}
+                              {cert.skills.length > 3 && (
+                                <Badge variant="secondary" className="text-xs px-1.5 py-0.5 bg-muted/50 border-border/50">
+                                  +{cert.skills.length - 3}
+                                </Badge>
+                              )}
+                            </div>
+                          </CardContent>
+                          <CardFooter className="flex justify-between items-center pt-3 pb-4 px-4 relative z-[1] mt-auto border-t border-primary/10">
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <Button variant="outline" size="sm" className="text-xs sm:text-sm h-9 border-primary/30 hover:bg-primary/10 hover:border-primary/50">
+                                  <Info className="mr-1.5 h-3.5 w-3.5" />
+                                  Details
+                                </Button>
+                              </DialogTrigger>
+                              <DialogContent className="max-w-2xl md:max-w-3xl max-h-[90vh] overflow-y-auto p-6 rounded-lg">
+                                <DialogHeader>
+                                  <DialogTitle className="text-2xl sm:text-3xl font-semibold">{cert.title}</DialogTitle>
+                                  <DialogDescription className="text-sm text-muted-foreground pt-1">
+                                    {cert.issuer} • {cert.date} {cert.validUntil ? `(Valid until: ${cert.validUntil})` : ''}
+                                  </DialogDescription>
+                                </DialogHeader>
+                                <hr className="my-4 border-border/30" />
+                                <div className="space-y-6 text-sm leading-relaxed">
+                                  <div className="relative aspect-video sm:aspect-[2/1] w-full overflow-hidden rounded-md shadow-md bg-muted mb-4">
+                                    <Image
+                                      src={cert.imageUrl || "/placeholder.svg"} // TODO: Replace placeholder
+                                      alt={`${cert.title} Certificate Image`}
+                                      fill
+                                      className="object-contain"
+                                    />
                                   </div>
-                                )}
-
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                  <div>
-                                    <h4 className="text-lg font-semibold mb-2">Details</h4>
-                                    <ul className="space-y-2 text-sm">
-                                      <li className="flex items-center gap-2">
-                                        <span className="font-medium">Issuer:</span> {cert.issuer}
-                                      </li>
-                                      <li className="flex items-center gap-2">
-                                        <span className="font-medium">Issued Date:</span> {cert.date}
-                                      </li>
-                                      <li className="flex items-center gap-2">
-                                        <span className="font-medium">Valid Until:</span> {cert.validUntil}
-                                      </li>
-                                      <li className="flex items-center gap-2">
-                                        <span className="font-medium">Certificate ID:</span> {cert.certificateId}
-                                      </li>
-                                      <li className="flex items-center gap-2">
-                                        <span className="font-medium">Level:</span> {cert.level}
-                                      </li>
-                                      <li className="flex items-center gap-2">
-                                        <span className="font-medium">Duration:</span> {cert.duration}
-                                      </li>
-                                    </ul>
-                                  </div>
-                                  <div>
-                                    <h4 className="text-lg font-semibold mb-2">Skills</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                      {cert.skills.map((skill, i) => (
-                                        <Badge key={i} variant="secondary">
-                                          {skill}
-                                        </Badge>
-                                      ))}
-                                    </div>
+                                  
+                                  <section>
+                                    <h4 className="text-lg font-semibold mb-2 text-primary">Description</h4>
+                                    <p className="text-foreground/90">{cert.detailedDescription}</p>
+                                  </section>
+                                  <hr className="border-border/20 my-4" />
+                                  {cert.courseMaterials && cert.courseMaterials.length > 0 && (
+                                    <section>
+                                      <h4 className="text-lg font-semibold mb-2 text-primary">Course Materials</h4>
+                                      <ul className="space-y-1.5 list-disc pl-5 text-foreground/90">
+                                        {cert.courseMaterials.map((material, idx) => <li key={idx}>{material}</li>)}
+                                      </ul>
+                                    </section>
+                                  )}
+                                  {cert.evaluation && cert.evaluation.length > 0 && (
+                                    <section>
+                                      <hr className="border-border/20 my-4" />
+                                      <h4 className="text-lg font-semibold mb-2 text-primary">Evaluation</h4>
+                                      <ul className="space-y-1.5 list-disc pl-5 text-foreground/90">
+                                        {cert.evaluation.map((item, idx) => <li key={idx}>{item}</li>)}
+                                      </ul>
+                                    </section>
+                                  )}
+                                  <hr className="border-border/20 my-4" />
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                                    <section>
+                                      <h4 className="text-lg font-semibold mb-2 text-primary">Details</h4>
+                                      <ul className="space-y-1.5 text-foreground/90">
+                                        <li><span className="font-medium">Certificate ID:</span> {cert.certificateId}</li>
+                                        <li><span className="font-medium">Level:</span> {cert.level}</li>
+                                        <li><span className="font-medium">Duration:</span> {cert.duration}</li>
+                                      </ul>
+                                    </section>
+                                    <section>
+                                      <h4 className="text-lg font-semibold mb-2 text-primary">Skills Acquired</h4>
+                                      <div className="flex flex-wrap gap-2">
+                                        {cert.skills.map((skill, i) => (
+                                          <Badge key={i} variant="secondary" className="bg-primary/10 text-primary/90 border-primary/20">{skill}</Badge>
+                                        ))}
+                                      </div>
+                                    </section>
                                   </div>
                                 </div>
-
-                                <div className="flex justify-end pt-4 border-t">
-                                  <Button className="bg-purple-600 hover:bg-purple-700" asChild>
+                                <DialogFooter className="pt-6 mt-6 border-t border-border/20">
+                                  <Button className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-primary-foreground" asChild>
                                     <Link href={cert.link} target="_blank" rel="noopener noreferrer">
                                       <ExternalLink className="mr-2 h-4 w-4" />
-                                      View Certificate
+                                      Verify Certificate
                                     </Link>
                                   </Button>
-                                </div>
-                              </div>
-                            </DialogContent>
-                          </Dialog>
+                                </DialogFooter>
+                              </DialogContent>
+                            </Dialog>
 
-                          <Button size="sm" className="bg-purple-600 hover:bg-purple-700 w-[100px] h-10" asChild>
-                            <Link href={cert.link} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="mr-2 h-4 w-4" />
-                              View
-                            </Link>
-                          </Button>
-                        </CardFooter>
-                      </Card>
+                            {/* This is the button (line 712 in previous context) that might have caused an error if button.tsx was incorrect */}
+                            <Button size="sm" className="text-xs sm:text-sm h-9 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-primary-foreground" asChild>
+                              <Link href={cert.link} target="_blank" rel="noopener noreferrer">
+                                <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
+                                Verify
+                              </Link>
+                            </Button>
+                          </CardFooter>
+                        </Card>
+                      </Interactive3DCard>
                     </motion.div>
                   ))
                 )}
               </AnimatePresence>
             </div>
-
-            {/* Redesigned gradient overlays - more subtle */}
-            <div className="absolute left-0 top-0 bottom-6 w-16 bg-gradient-to-r from-background to-transparent pointer-events-none"></div>
-            <div className="absolute right-0 top-0 bottom-6 w-16 bg-gradient-to-l from-background to-transparent pointer-events-none"></div>
           </div>
 
-          {/* Custom visible scrollbar */}
           {filteredCertificates.length > 0 && (
-            <div className="relative mt-2 mb-6 px-4">
+            <div className="relative mt-4 mb-6 px-4">
               <Slider
                 value={[scrollPercentage]}
-                min={0}
-                max={100}
-                step={0.1}
+                min={0} max={100} step={0.1}
                 onValueChange={(value) => {
                   if (scrollContainerRef.current) {
                     const container = scrollContainerRef.current;
@@ -769,19 +736,21 @@ export default function Certificates() {
                     container.scrollLeft = (value[0] / 100) * maxScrollLeft;
                   }
                 }}
-                className="py-1"
+                className="py-1 [&>span:first-child]:h-1.5 [&>span:first-child>span]:h-1.5 [&>span:first-child>span]:bg-gradient-to-r [&>span:first-child>span]:from-blue-500 [&>span:first-child>span]:to-purple-500"
                 aria-label="Scroll certificates"
               />
             </div>
           )}
 
-          {/* Click and drag instruction - Update text to include slider */}
           {filteredCertificates.length > 0 && (
-            <div className="flex items-center justify-center gap-3 mb-6 text-muted-foreground text-sm">
+             <motion.div 
+              className="flex items-center justify-center gap-2 mb-6 text-muted-foreground text-xs sm:text-sm"
+              initial={{opacity:0, y:10}}
+              animate={scrollIndicatorControls}
+            >
               <MousePointer className="h-4 w-4" />
               <span>Drag slider or certificates to scroll</span>
-              <ChevronRight className="h-4 w-4" />
-            </div>
+            </motion.div>
           )}
         </motion.div>
       </div>
