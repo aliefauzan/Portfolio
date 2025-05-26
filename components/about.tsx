@@ -67,7 +67,7 @@ export default function About() {
                 <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl transform -translate-x-2 translate-y-2"></div>
                 <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary/50 shadow-xl">
                   <Image
-                    src="/placeholder.svg?height=200&width=200"
+                    src="/foto_alief.png?height=200&width=200"
                     alt="Andi Muhammad Alief Fauzan"
                     width={200}
                     height={200}
