@@ -24,6 +24,11 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
     --radius: 0.5rem;
+
+    /* Define HSL versions if not already present for iridescent-glow */
+    /* These are examples, adjust to your actual theme colors */
+    --primary-hsl: 221.2 83.2% 53.3%; 
+    --accent-hsl: 210 40% 96.1%;   
   }
 
   .dark {
@@ -34,7 +39,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
     --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary-foreground: 222.2 47.4% 11.2%; /* Changed from 210 40% 98% for better contrast on primary bg */
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
@@ -46,6 +51,10 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
+
+    /* Define HSL versions for dark mode if not already present */
+    --primary-hsl: 217.2 91.2% 59.8%;
+    --accent-hsl: 217.2 32.6% 17.5%;
   }
 }
 
@@ -59,8 +68,6 @@
   html {
     scroll-behavior: smooth;
   }
-
-
 }
 
 @layer utilities {
@@ -70,72 +77,175 @@
 
   @keyframes blink {
     from,
-    to {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
+    to { opacity: 1; }
+    50% { opacity: 0; }
   }
 
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+  body.dragging-scroll,
+  body.dragging-scroll * {
+    cursor: grabbing !important;
+  }
+  .dragging-scroll-element {
+     cursor: grabbing !important;
   }
 
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .scrollbar-hide {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: hsl(var(--muted) / 0.1);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.4);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.6);
+  }
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary) / 0.4) hsl(var(--muted) / 0.1);
   }
 
-  /* Simple Card Edge Effects */
-  .card-edge {
+  .floating { /* Renamed from floating-animation for consistency */
+    animation: float 7s ease-in-out infinite;
+  }
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
+  }
+
+  /* Holographic Border Shimmer Effect */
+  .holographic-border {
     position: relative;
-    border: 1px solid transparent;
-    background: linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box,
-                linear-gradient(135deg, 
-                  hsl(var(--primary) / 0.3), 
-                  hsl(var(--primary) / 0.1),
-                  hsl(var(--accent) / 0.2),
-                  hsl(var(--primary) / 0.3)
-                ) border-box;
-    border-radius: var(--radius);
-    transition: all 0.3s ease;
+  }
+  .holographic-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px; 
+    border-radius: inherit; 
+    padding: 1px; 
+    background: linear-gradient(
+      90deg,
+      hsl(var(--primary) / 0.7), 
+      hsl(var(--accent) / 0.5), 
+      hsl(var(--secondary-foreground) / 0.4), 
+      hsl(var(--primary) / 0.3), 
+      hsl(var(--accent) / 0.5),
+      hsl(var(--primary) / 0.7)
+    );
+    background-size: 300% 100%;
+    animation: shimmer-border-effect 6s linear infinite;
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: 0; 
+    pointer-events: none;
+    will-change: background-position;
   }
 
-  .card-edge:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px hsl(var(--primary) / 0.1);
+  @keyframes shimmer-border-effect {
+    0% { background-position: 150% 50%; }
+    100% { background-position: -50% 50%; }
+  }
+  /* Ensure inner content is above the border pseudo-element */
+  .holographic-border > .bg-card { /* Targeting the specific child in your TSX */
+    position: relative; /* Establishes a stacking context */
+    z-index: 1;         /* Ensures it's above the ::before (z-index: 0) */
+    background-color: hsl(var(--card)); /* Explicit background for the content area */
+    border-radius: inherit; /* Match parent's rounding if ::before is inset */
   }
 
-  .card-edge-animated {
+
+  /* Iridescent Glow for Icon Backgrounds */
+  .iridescent-glow {
     position: relative;
-    border: 1px solid transparent;
-    background: linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box,
-                linear-gradient(135deg, 
-                  hsl(var(--primary) / 0.4), 
-                  hsl(var(--accent) / 0.2),
-                  hsl(var(--primary) / 0.6),
-                  hsl(var(--accent) / 0.3)
-                ) border-box;
-    border-radius: var(--radius);
-    background-size: 200% 200%;
-    animation: gentle-gradient 4s ease infinite;
-    transition: all 0.3s ease;
+    overflow: hidden; 
+  }
+  .iridescent-glow::after {
+    content: '';
+    position: absolute;
+    top: -75%; 
+    left: -75%;
+    width: 250%;
+    height: 250%;
+    background: conic-gradient(
+      from 0deg at 50% 50%,
+      hsla(var(--primary-hsl, 217 91% 59%) / 0.01),
+      hsla(var(--primary-hsl, 217 91% 59%) / 0.1),
+      hsla(var(--accent-hsl, 217 32% 17%) / 0.08),
+      hsla(var(--primary-hsl, 217 91% 59%) / 0.03),
+      hsla(var(--primary-hsl, 217 91% 59%) / 0.1),
+      hsla(var(--primary-hsl, 217 91% 59%) / 0.01)
+    );
+    animation: spin-glow 6s linear infinite;
+    z-index: 0; 
+    opacity: 0.6; 
+  }
+  .iridescent-glow > svg { 
+    position: relative;
+    z-index: 1; 
+  }
+  @keyframes spin-glow {
+    100% { transform: rotate(360deg); }
   }
 
-  .card-edge-animated:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px hsl(var(--primary) / 0.15);
+  /* Rainbow Text */
+  .rainbow-text {
+    background-image: linear-gradient(to right, 
+      hsl(var(--primary)), 
+      hsl(var(--primary) / 0.8), 
+      hsl(var(--accent) / 0.9), 
+      hsl(var(--secondary-foreground) / 0.7),
+      hsl(var(--primary))
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow-flow 8s ease-in-out infinite;
+    background-size: 300% 100%;
   }
 
-  @keyframes gentle-gradient {
-    0%, 100% { 
-      background-position: 0% 50%; 
-    }
-    50% { 
-      background-position: 100% 50%; 
-    }
+  @keyframes rainbow-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
+
+  /* Base style for card-3d if needed, though most is handled by dynamic transform */
+  .card-3d {
+    /* Add any base static styles for the 3D card wrapper here */
+    /* For example, if you want a default transition for non-JS scenarios or base perspective */
+    /* perspective: 1000px; /* This is applied dynamically in the style prop */
+    /* transform-style: preserve-3d; /* Also applied dynamically */
+    /* transition: transform 0.1s linear; /* Example base transition for non-hover states */
+  }
+
+  /* Timeline specific styles - you had these in TSX via Tailwind */
+  /* If you want to abstract them: */
+  /*
+  .timeline-item {
+    position: relative; 
+  }
+  .timeline-dot {
+    position: absolute;
+    width: 1rem; 
+    height: 1rem; 
+    border-radius: 9999px; 
+    background-color: hsl(var(--primary));
+    left: -9px; // This depends on parent padding and line thickness
+    top: 0;
+    // Add 'floating' class for animation
+  }
+  */
 }
