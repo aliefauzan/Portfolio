@@ -188,7 +188,7 @@ export default function Projects() {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
             <span className="relative inline-block">
-              My <span className="text-primary">Projects</span>
+              My <span className="rainbow-text">Projects</span>
               <motion.div
                 className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
                 initial={{ width: "0%" }}
