@@ -88,4 +88,54 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  /* Simple Card Edge Effects */
+  .card-edge {
+    position: relative;
+    border: 1px solid transparent;
+    background: linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box,
+                linear-gradient(135deg, 
+                  hsl(var(--primary) / 0.3), 
+                  hsl(var(--primary) / 0.1),
+                  hsl(var(--accent) / 0.2),
+                  hsl(var(--primary) / 0.3)
+                ) border-box;
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+  }
+
+  .card-edge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px hsl(var(--primary) / 0.1);
+  }
+
+  .card-edge-animated {
+    position: relative;
+    border: 1px solid transparent;
+    background: linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box,
+                linear-gradient(135deg, 
+                  hsl(var(--primary) / 0.4), 
+                  hsl(var(--accent) / 0.2),
+                  hsl(var(--primary) / 0.6),
+                  hsl(var(--accent) / 0.3)
+                ) border-box;
+    border-radius: var(--radius);
+    background-size: 200% 200%;
+    animation: gentle-gradient 4s ease infinite;
+    transition: all 0.3s ease;
+  }
+
+  .card-edge-animated:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px hsl(var(--primary) / 0.15);
+  }
+
+  @keyframes gentle-gradient {
+    0%, 100% { 
+      background-position: 0% 50%; 
+    }
+    50% { 
+      background-position: 100% 50%; 
+    }
+  }
 }
