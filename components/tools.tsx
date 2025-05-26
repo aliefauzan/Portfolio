@@ -6,6 +6,7 @@ import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Lightbulb } from "lucide-react"
+import { Interactive3DCard } from "@/components/ui/interactive-3d-card"
 
 // Define the tools with their icons, names, URLs, and proficiency levels
 const toolsData = [
@@ -183,10 +184,10 @@ const getProficiencyLevel = (proficiency: number) => {
 
 // Function to determine the proficiency level color
 const getProficiencyColor = (proficiency: number) => {
-  if (proficiency >= 85) return "bg-green-500"
-  if (proficiency >= 75) return "bg-blue-500"
-  if (proficiency >= 65) return "bg-yellow-500"
-  return "bg-gray-500"
+  if (proficiency >= 85) return "bg-gradient-to-r from-green-400 to-green-600"
+  if (proficiency >= 75) return "bg-gradient-to-r from-blue-400 to-blue-600"
+  if (proficiency >= 65) return "bg-gradient-to-r from-yellow-400 to-yellow-600"
+  return "bg-gradient-to-r from-gray-400 to-gray-600"
 }
 
 export default function Tools() {
@@ -204,21 +205,29 @@ export default function Tools() {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-            Languages & <span className="text-primary">Tools</span>
-          </h2>
+<h2 className="text-3xl md:text-4xl font-bold mb-12 text-center rainbow-text">
+        <span className="relative inline-block"> {/* Wrapper for text and underline */}
+          Languages & <span className="text-primary">Tools</span>
+          <motion.div
+            className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+            initial={{ width: "0%" }}
+            animate={inView ? { width: "100%" } : { width: "0%" }} // Make sure 'inView' is correctly set up for this section
+            transition={{ duration: 0.8, delay: 0.3 }}
+          ></motion.div>
+        </span>
+      </h2>
 
           <Tabs defaultValue="technical" className="w-full">
-            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
-              <TabsTrigger value="technical">Technical Skills</TabsTrigger>
-              <TabsTrigger value="soft">Soft Skills</TabsTrigger>
+            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8 holographic-border border-transparent bg-gradient-to-r from-background/80 to-primary/10">
+              <TabsTrigger value="technical" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:via-pink-500 data-[state=active]:to-blue-500 data-[state=active]:text-white transition-all duration-300">Technical Skills</TabsTrigger>
+              <TabsTrigger value="soft" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:via-pink-500 data-[state=active]:to-blue-500 data-[state=active]:text-white transition-all duration-300">Soft Skills</TabsTrigger>
             </TabsList>
 
             <TabsContent value="technical">
               <div className="grid gap-8">
                 {toolsData.map((category, categoryIndex) => (
                   <div key={categoryIndex}>
-                    <h3 className="text-xl font-semibold mb-4 text-primary border-b pb-2">{category.category}</h3>
+                    <h3 className="text-xl font-semibold mb-4 text-primary border-b border-gradient-to-r from-purple-500/50 via-pink-500/50 to-blue-500/50 pb-2">{category.category}</h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                       {category.items.map((tool, toolIndex) => (
                         <motion.div
@@ -226,41 +235,47 @@ export default function Tools() {
                           initial={{ opacity: 0, y: 10 }}
                           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                           transition={{ duration: 0.3, delay: toolIndex * 0.1 + categoryIndex * 0.2 }}
+                          className="floating"
+                          style={{ animationDelay: `${(toolIndex * 0.1 + categoryIndex * 0.2)}s` }}
                         >
-                          <a
-                            href={tool.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex flex-col h-full bg-background rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 hover:bg-primary/5 group"
-                          >
-                            <div className="flex items-center mb-3">
-                              <div className="w-10 h-10 flex-shrink-0 bg-muted/50 rounded-md flex items-center justify-center mr-3">
-                                <Image
-                                  src={tool.icon || "/placeholder.svg"}
-                                  alt={tool.name}
-                                  width={24}
-                                  height={24}
-                                  className="object-contain"
-                                />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <h4 className="font-medium text-sm truncate group-hover:text-primary transition-colors">
-                                  {tool.name}
-                                </h4>
-                                <div className="flex items-center mt-1">
-                                  <div className="h-1.5 w-full bg-muted/50 rounded-full overflow-hidden">
-                                    <div
-                                      className={`h-full ${getProficiencyColor(tool.proficiency)} rounded-full`}
-                                      style={{ width: `${tool.proficiency}%` }}
-                                    ></div>
+                          <Interactive3DCard intensity="high">
+                            <a
+                              href={tool.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="flex flex-col h-full holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 rounded-lg p-4 shadow-sm hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+                            >
+                              <div className="flex items-center mb-3">
+                                <div className="w-10 h-10 flex-shrink-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-blue-500/20 rounded-md flex items-center justify-center mr-3 transition-all duration-300 iridescent-glow">
+                                  <Image
+                                    src={tool.icon || "/placeholder.svg"}
+                                    alt={tool.name}
+                                    width={24}
+                                    height={24}
+                                    className="object-contain"
+                                  />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <h4 className="font-medium text-sm truncate group-hover:text-primary transition-colors">
+                                    {tool.name}
+                                  </h4>
+                                  <div className="flex items-center mt-1">
+                                    <div className="h-1.5 w-full bg-muted/50 rounded-full overflow-hidden">
+                                      <motion.div
+                                        className={`h-full ${getProficiencyColor(tool.proficiency)} rounded-full`}
+                                        initial={{ width: 0 }}
+                                        animate={inView ? { width: `${tool.proficiency}%` } : { width: 0 }}
+                                        transition={{ duration: 1, delay: toolIndex * 0.1 + categoryIndex * 0.2 + 0.5 }}
+                                      ></motion.div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                            <Badge variant="outline" className="self-start mt-auto text-xs">
-                              {getProficiencyLevel(tool.proficiency)}
-                            </Badge>
-                          </a>
+                              <Badge variant="outline" className="self-start mt-auto text-xs border-primary/30 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 hover:from-purple-500/20 hover:via-pink-500/20 hover:to-blue-500/20 transition-all duration-300">
+                                {getProficiencyLevel(tool.proficiency)}
+                              </Badge>
+                            </a>
+                          </Interactive3DCard>
                         </motion.div>
                       ))}
                     </div>
@@ -277,17 +292,22 @@ export default function Tools() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                     transition={{ duration: 0.3, delay: index * 0.1 }}
-                    className="bg-background rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300"
+                    className="floating"
+                    style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="flex items-start">
-                      <div className="mr-3 mt-1">
-                        <Lightbulb className="h-5 w-5 text-primary" />
+                    <Interactive3DCard intensity="medium" className="h-full">
+                      <div className="holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 rounded-lg p-4 shadow-sm hover:shadow-xl transition-all duration-300 h-full group">
+                        <div className="flex items-start h-full">
+                          <div className="mr-3 mt-1 p-2 rounded-lg bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-blue-500/20 transition-all duration-300 iridescent-glow">
+                            <Lightbulb className="h-5 w-5 text-primary" />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-semibold mb-1 group-hover:text-primary transition-colors">{skill.name}</h4>
+                            <p className="text-sm text-muted-foreground">{skill.description}</p>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <h4 className="font-semibold mb-1">{skill.name}</h4>
-                        <p className="text-sm text-muted-foreground">{skill.description}</p>
-                      </div>
-                    </div>
+                    </Interactive3DCard>
                   </motion.div>
                 ))}
               </div>
