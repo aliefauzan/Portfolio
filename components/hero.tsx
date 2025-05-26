@@ -1,24 +1,55 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import { ArrowDown, Download, Github, Linkedin, Mail, Phone } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button" // Make sure this path is correct for your project
 import Link from "next/link"
 
 export default function Hero() {
   const [typedText, setTypedText] = useState("")
-  const fullText = "Backend Developer & Cloud Computing Specialist"
+  const [typingComplete, setTypingComplete] = useState(false)
+  const fullTextSubheading = "Backend Developer & Cloud Computing Specialist"
+  
+  const nameLines = ["Hi, I'm Andi Muhammad", "Alief Fauzan"]; 
 
   useEffect(() => {
-    if (typedText.length < fullText.length) {
+    if (typedText.length < fullTextSubheading.length) {
+      setTypingComplete(false)
       const timeout = setTimeout(() => {
-        setTypedText(fullText.slice(0, typedText.length + 1))
-      }, 100)
+        setTypedText(fullTextSubheading.slice(0, typedText.length + 1))
+      }, 100) // Typing speed
 
       return () => clearTimeout(timeout)
+    } else {
+      setTypingComplete(true) // Typing is complete
     }
-  }, [typedText, fullText])
+  }, [typedText, fullTextSubheading])
+
+  // Variants for word-by-word animation
+  const wordContainerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08, 
+        delayChildren: 0.5,   
+      },
+    },
+  }
+
+  const wordChildVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+  }
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center pt-16">
@@ -29,31 +60,82 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
           className="max-w-3xl"
         >
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            Hi, I'm <span className="text-primary">Andi Muhammad Alief Fauzan</span>
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center">
+            <motion.span 
+              className="inline-block" 
+              variants={wordContainerVariants}
+              initial="hidden"
+              animate="visible"
+              aria-label={nameLines.join(" ")} 
+            >
+              {nameLines.map((line, lineIndex) => (
+                <span key={lineIndex} className="block"> 
+                  {line.split(" ").map((word, wordIndex, arr) => {
+                    let textColorClass = "";
+                    if (lineIndex === 0) { 
+                      if (wordIndex < 2) { 
+                        textColorClass = "text-white"; 
+                      } else {
+                        textColorClass = "text-primary"; 
+                      }
+                    } else { 
+                      textColorClass = "text-primary";
+                    }
+
+                    return (
+                      <motion.span
+                        key={`${lineIndex}-${wordIndex}`}
+                        className={`inline-block ${textColorClass} ${wordIndex < arr.length -1 ? "mr-[0.2em]" : ""}`}
+                        variants={wordChildVariants}
+                      >
+                        {word}
+                      </motion.span>
+                    );
+                  })}
+                </span>
+              ))}
+            </motion.span>
           </h1>
 
-          <h2 className="text-xl md:text-2xl mb-6 h-8">
-            {typedText}
-            <span className="animate-blink">|</span>
-          </h2>
+          <div className="relative inline-block mb-6"> 
+            <h2 className="text-xl md:text-2xl h-8"> 
+              {typedText}
+              {!typingComplete && <span className="animate-blink">|</span>}
+            </h2>
+            {typingComplete && (
+              <motion.div
+                className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" // Gradient underline
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 0.7, ease: "circOut", delay: 0.2 }}
+              />
+            )}
+          </div>
 
           <p className="text-muted-foreground mb-8 text-lg">
             Passionate about building scalable solutions with Google Cloud Platform and Docker
           </p>
 
+          {/* Buttons section with "View Projects" explicitly styled */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <Link href="#contact">
+              {/* Primary button - assuming default variant is your main filled style */}
               <Button size="lg" className="rounded-full">
                 Contact Me
               </Button>
             </Link>
             <Link href="#projects">
-              <Button size="lg" variant="outline" className="rounded-full">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                // Added classes to ensure primary color for text/border and a subtle hover
+                className="rounded-full text-primary border-primary hover:bg-primary/10" 
+              >
                 View Projects
               </Button>
             </Link>
             <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer" download>
+              {/* Secondary button - style depends on your theme's secondary variant */}
               <Button size="lg" variant="secondary" className="rounded-full">
                 <Download className="mr-2 h-4 w-4" />
                 Download Resume
