@@ -6,6 +6,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Download, Code, Server, Database, Cloud } from "lucide-react"
 import Link from "next/link"
+import { Interactive3DCard } from "@/components/ui/interactive-3d-card"
 
 export default function About() {
   const [ref, inView] = useInView({
@@ -53,7 +54,7 @@ export default function About() {
             <h2 className="text-4xl font-bold mb-2 relative inline-block">
               About <span className="text-primary">Me</span>
               <motion.div
-                className="absolute -bottom-2 left-0 right-0 h-1 bg-primary rounded-full"
+                className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
                 initial={{ width: "0%" }}
                 animate={inView ? { width: "100%" } : { width: "0%" }}
                 transition={{ duration: 0.8, delay: 0.3 }}
@@ -83,22 +84,24 @@ export default function About() {
               </Link>
             </div>
 
-            <div className="md:col-span-3 bg-background/80 backdrop-blur-sm rounded-xl p-6 border border-primary/10 shadow-lg">
-              <p className="text-lg mb-3">
-                <span className="font-medium">Informatics student at Telkom University</span> specializing in
-                <span className="text-primary font-medium"> Backend Development</span> and
-                <span className="text-primary font-medium"> Cloud Computing</span>. Experienced with GCP and Docker.
-              </p>
+            <div className="md:col-span-3">
+              <Interactive3DCard animated={true} className="rounded-xl p-6">
+                <p className="text-lg mb-3">
+                  <span className="font-medium">Informatics student at Telkom University</span> specializing in
+                  <span className="text-primary font-medium"> Backend Development</span> and
+                  <span className="text-primary font-medium"> Cloud Computing</span>. Experienced with GCP and Docker.
+                </p>
 
-              <p className="text-lg mb-3">
-                Enhanced technical and leadership skills through the{" "}
-                <span className="font-medium">Bangkit Academy 2024 Cloud Computing Path</span>, completing
-                industry-aligned training and certifications.
-              </p>
+                <p className="text-lg mb-3">
+                  Enhanced technical and leadership skills through the{" "}
+                  <span className="font-medium">Bangkit Academy 2024 Cloud Computing Path</span>, completing
+                  industry-aligned training and certifications.
+                </p>
 
-              <p className="text-lg font-medium">
-                Seeking to drive innovation through cloud computing and DevOps expertise.
-              </p>
+                <p className="text-lg font-medium">
+                  Seeking to drive innovation through cloud computing and DevOps expertise.
+                </p>
+              </Interactive3DCard>
             </div>
           </div>
 
@@ -109,17 +112,20 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-background/80 backdrop-blur-sm p-5 rounded-xl border border-primary/10 shadow-md group"
               >
-                <div className="flex items-center gap-4">
-                  <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                    {skill.icon}
+                <Interactive3DCard className="h-full">
+                  <div className="p-5 rounded-xl h-full">
+                    <div className="flex items-center gap-4">
+                      <div className="p-2 rounded-lg bg-primary/10">
+                        {skill.icon}
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold">{skill.title}</h3>
+                        <p className="text-sm text-muted-foreground">{skill.description}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">{skill.title}</h3>
-                    <p className="text-sm text-muted-foreground">{skill.description}</p>
-                  </div>
-                </div>
+                </Interactive3DCard>
               </motion.div>
             ))}
           </div>
