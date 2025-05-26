@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Award, CheckCircle2 } from "lucide-react"
+import { Interactive3DCard } from "@/components/ui/interactive-3d-card"
 
 // Define the GCP badges data
 const gcpBadges = [
@@ -166,10 +167,18 @@ export default function GCPBadges() {
           transition={{ duration: 0.5 }}
         >
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Award className="h-8 w-8 text-primary" />
-            <h2 className="text-3xl md:text-4xl font-bold text-center">
-              Google Cloud <span className="text-primary">Badges</span>
-            </h2>
+            <Award className="h-8 w-8 text-primary floating-animation" />
+<h2 className="text-3xl md:text-4xl font-bold text-center">
+        <span className="relative inline-block"> {/* Wrapper for text and underline */}
+          Google Cloud <span className="rainbow-text">Badges</span>
+          <motion.div
+            className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+            initial={{ width: "0%" }}
+            animate={inView ? { width: "100%" } : { width: "0%" }} // Ensure 'inView' is correctly scoped for this element
+            transition={{ duration: 0.8, delay: 0.3 }}
+          ></motion.div>
+        </span>
+      </h2>
           </div>
 
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
@@ -178,9 +187,19 @@ export default function GCPBadges() {
           </p>
 
           <Tabs defaultValue="completion" className="w-full">
-            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
-              <TabsTrigger value="completion">Completion Badges</TabsTrigger>
-              <TabsTrigger value="skill">Skill Badges</TabsTrigger>
+            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8 bg-gradient-to-r from-muted to-muted/50">
+              <TabsTrigger 
+                value="completion" 
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white"
+              >
+                Completion Badges
+              </TabsTrigger>
+              <TabsTrigger 
+                value="skill"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+              >
+                Skill Badges
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="completion">
@@ -191,38 +210,37 @@ export default function GCPBadges() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
-                    whileHover={{ 
-                      y: -5,
-                      transition: { duration: 0.2 } 
-                    }}
                   >
-                    <Card className="h-full overflow-hidden hover:shadow-md transition-all duration-300 border-t-4 border-t-primary/10 hover:border-t-primary/80 group">
-                      <CardContent className="p-4 flex flex-col h-full">
-                        <div className="bg-muted/30 rounded-lg p-4 mb-4 flex items-center justify-center relative">
-                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-primary/5 rounded-lg transition-opacity duration-300"></div>
-                          <div className="relative w-12 h-12">
-                            <Image
-                              src="/placeholder.svg?height=48&width=48"
-                              alt={badge.name}
-                              fill
-                              className="object-contain"
-                            />
-                            <div className="absolute -bottom-1 -right-1 bg-primary rounded-full p-0.5">
-                              <CheckCircle2 className="h-3 w-3 text-white" />
-                            </div>
+                    <Interactive3DCard glowEffect={true} intensity="low">
+                      <Card className="h-full overflow-hidden hover:shadow-md transition-all duration-300 group">
+                        <div className="holographic-border h-full">
+                          <div className="bg-card rounded-lg h-full">
+                            <CardContent className="p-4 flex flex-col h-full">
+                              <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 rounded-lg p-4 mb-4 flex items-center justify-center relative">
+                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-lg transition-opacity duration-300"></div>
+                                <div className="relative w-12 h-12">
+                                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                                    <CheckCircle2 className="h-6 w-6 text-white" />
+                                  </div>
+                                  <div className="absolute -bottom-1 -right-1 bg-green-500 rounded-full p-0.5">
+                                    <CheckCircle2 className="h-3 w-3 text-white" />
+                                  </div>
+                                </div>
+                              </div>
+                              <h3 className="font-medium text-sm mb-2 line-clamp-2 group-hover:text-primary transition-colors rainbow-text">
+                                {badge.name}
+                              </h3>
+                              <div className="mt-auto pt-2 flex flex-col gap-2">
+                                <Badge variant="outline" className="w-fit text-xs bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-blue-300/30">
+                                  {badge.type}
+                                </Badge>
+                                <p className="text-xs text-muted-foreground">{badge.date}</p>
+                              </div>
+                            </CardContent>
                           </div>
                         </div>
-                        <h3 className="font-medium text-sm mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                          {badge.name}
-                        </h3>
-                        <div className="mt-auto pt-2 flex flex-col gap-2">
-                          <Badge variant="outline" className="w-fit text-xs">
-                            {badge.type}
-                          </Badge>
-                          <p className="text-xs text-muted-foreground">{badge.date}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
+                      </Card>
+                    </Interactive3DCard>
                   </motion.div>
                 ))}
               </div>
@@ -236,41 +254,42 @@ export default function GCPBadges() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
-                    whileHover={{ 
-                      y: -5,
-                      transition: { duration: 0.2 } 
-                    }}
                   >
-                    <Card className="h-full overflow-hidden hover:shadow-md transition-all duration-300 border-t-4 border-t-primary/10 hover:border-t-primary/80 group">
-                      <CardContent className="p-4 flex flex-col h-full">
-                        <div className="bg-muted/30 rounded-lg p-4 mb-4 flex items-center justify-center relative">
-                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-primary/5 rounded-lg transition-opacity duration-300"></div>
-                          <div className="relative w-12 h-12">
-                            <Image
-                              src="/placeholder.svg?height=48&width=48"
-                              alt={badge.name}
-                              fill
-                              className="object-contain"
-                            />
-                            <div className="absolute -bottom-1 -right-1 bg-primary rounded-full p-0.5">
-                              <Award className="h-3 w-3 text-white" />
-                            </div>
+                    <Interactive3DCard glowEffect={true} intensity="low">
+                      <Card className="h-full overflow-hidden hover:shadow-md transition-all duration-300 group">
+                        <div className="holographic-border h-full">
+                          <div className="bg-card rounded-lg h-full">
+                            <CardContent className="p-4 flex flex-col h-full">
+                              <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 rounded-lg p-4 mb-4 flex items-center justify-center relative">
+                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-lg transition-opacity duration-300"></div>
+                                <div className="relative w-12 h-12">
+                                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+                                    <Award className="h-6 w-6 text-white" />
+                                  </div>
+                                  <div className="absolute -bottom-1 -right-1 bg-primary rounded-full p-0.5">
+                                    <Award className="h-3 w-3 text-white" />
+                                  </div>
+                                </div>
+                              </div>
+                              <h3 className="font-medium text-sm mb-2 line-clamp-2 group-hover:text-primary transition-colors rainbow-text">
+                                {badge.name}
+                              </h3>
+                              <div className="mt-auto pt-2 flex flex-col gap-2">
+                                <Badge variant="outline" className="w-fit text-xs bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-purple-300/30">
+                                  {badge.type}
+                                </Badge>
+                                {'area' in badge && (
+                                  <Badge variant="secondary" className="w-fit text-xs bg-gradient-to-r from-pink-500/10 to-orange-500/10">
+                                    {badge.area}
+                                  </Badge>
+                                )}
+                                <p className="text-xs text-muted-foreground">{badge.date}</p>
+                              </div>
+                            </CardContent>
                           </div>
                         </div>
-                        <h3 className="font-medium text-sm mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                          {badge.name}
-                        </h3>
-                        <div className="mt-auto pt-2 flex flex-col gap-2">
-                          <Badge variant="outline" className="w-fit text-xs">
-                            {badge.type}
-                          </Badge>
-                          <Badge variant="secondary" className="w-fit text-xs">
-                            {badge.area}
-                          </Badge>
-                          <p className="text-xs text-muted-foreground">{badge.date}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
+                      </Card>
+                    </Interactive3DCard>
                   </motion.div>
                 ))}
               </div>
