@@ -224,11 +224,47 @@
 
   /* Base style for card-3d if needed, though most is handled by dynamic transform */
   .card-3d {
+    position: relative; /* Ensure stacking context for overlay */
     /* Add any base static styles for the 3D card wrapper here */
     /* For example, if you want a default transition for non-JS scenarios or base perspective */
     /* perspective: 1000px; /* This is applied dynamically in the style prop */
     /* transform-style: preserve-3d; /* Also applied dynamically */
     /* transition: transform 0.1s linear; /* Example base transition for non-hover states */
+  }
+
+  .pokemon-shine-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit; /* Inherit from parent card */
+    background: linear-gradient(
+      125deg,
+      hsla(0, 0%, 100%, 0.15) 15%,
+      hsla(0, 0%, 100%, 0.05) 30%,
+      hsla(0, 0%, 100%, 0.1) 45%,
+      hsla(0, 0%, 100%, 0.0) 60%,
+      hsla(0, 0%, 100%, 0.15) 75%,
+      hsla(0, 0%, 100%, 0.05) 90%,
+      hsla(0, 0%, 100%, 0.1) 100%
+    );
+    background-size: 400% 400%;
+    mix-blend-mode: overlay; /* Soft light or overlay can work well */
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1; /* Above card content, below interactive elements if any */
+    animation: pokemon-shine-animation 8s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .card-3d:hover .pokemon-shine-overlay {
+    opacity: 0.6; /* Make it more visible on hover */
+  }
+
+  @keyframes pokemon-shine-animation {
+    0% { background-position: 200% 200%; }
+    100% { background-position: -200% -200%; }
   }
 
   /* Timeline specific styles - you had these in TSX via Tailwind */
