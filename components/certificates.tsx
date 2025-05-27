@@ -484,7 +484,7 @@ export default function Certificates() {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center rainbow-text">
             <span className="relative inline-block">
-              <span className="text-primary">Certificates</span> & Achievements
+              <span className="rainbow-text">Certificates & Achievements</span>
               <motion.div
                 className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
                 initial={{ width: "0%" }}
