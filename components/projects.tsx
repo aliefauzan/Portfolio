@@ -186,7 +186,7 @@ export default function Projects() {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
             <span className="relative inline-block">
               My <span className="rainbow-text">Projects</span>
               <motion.div
@@ -197,8 +197,11 @@ export default function Projects() {
               ></motion.div>
             </span>
           </h2>
+          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
+            A collection of my work, showcasing a variety of skills and technologies I've utilized in different contexts.
+          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8"> {/* Increased gap slightly */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
             {displayedProjects.map((project, index) => {
               const isDemoAvailable = project.links.demo && project.links.demo !== "#";
               return (
@@ -208,29 +211,25 @@ export default function Projects() {
                   animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <Interactive3DCard 
-                    animated={true}
-                    className="h-full"
+                  <Interactive3DCard
+                    className="h-full" // animated={true} prop removed
                   >
-                    {/* Added subtle hover effect to the card content wrapper */}
                     <div className="bg-card rounded-lg overflow-hidden h-full flex flex-col shadow-md hover:shadow-xl hover:border-primary/50 border border-transparent transition-all duration-300">
                       <div className="relative h-48 overflow-hidden bg-muted">
                         <Image
-                          src={project.image || "/placeholder.svg"} // Consider actual images
+                          src={project.image || "/placeholder.svg"}
                           alt={project.imageAlt}
                           fill
                           className="object-cover"
-                          // placeholder="blur" // Consider adding blurDataURL if using this
-                          // blurDataURL="your_low_res_image_placeholder"
                         />
                       </div>
 
                       <div className="p-5 flex flex-col flex-grow">
                         <h3 className="text-xl font-bold mb-1 line-clamp-1">{project.title}</h3>
                         <p className="text-sm text-muted-foreground mb-3">{project.date}</p>
-                        <p className="text-sm mb-4 line-clamp-2 h-10">{project.description}</p> {/* Added fixed height for description consistency */}
+                        <p className="text-sm mb-4 line-clamp-2 h-10">{project.description}</p>
 
-                        <div className="flex flex-wrap gap-2 mb-4 min-h-[28px]"> {/* min-h for badge consistency */}
+                        <div className="flex flex-wrap gap-2 mb-4 min-h-[28px]">
                           {project.technologies.slice(0, 4).map((tech, i) => (
                             <Badge key={i} variant="secondary" className="text-xs">
                               {tech}
@@ -254,12 +253,12 @@ export default function Projects() {
                           )}
                         </div>
 
-                        <div className="flex justify-between items-center mt-auto"> {/* items-center for button alignment */}
+                        <div className="flex justify-between items-center mt-auto">
                           <div className="flex gap-2">
                             <Button variant="outline" size="sm" asChild>
                               <Link href={project.links.github} target="_blank" rel="noopener noreferrer">
                                 <Github className="mr-2 h-4 w-4" />
-                                View Code {/* Consistent Text */}
+                                View Code
                               </Link>
                             </Button>
 
@@ -278,7 +277,7 @@ export default function Projects() {
                                   </DialogDescription>
                                 </DialogHeader>
 
-                                <div className="mt-4 space-y-6"> {/* Increased space-y */}
+                                <div className="mt-4 space-y-6">
                                   <div className="relative h-52 sm:h-60 md:h-72 w-full overflow-hidden rounded-lg shadow-lg">
                                     <Image
                                       src={project.image || "/placeholder.svg"}
@@ -321,9 +320,9 @@ export default function Projects() {
                                         View Code
                                       </Link>
                                     </Button>
-                                    <Button 
+                                    <Button
                                       className={`w-full sm:w-auto bg-purple-600 hover:bg-purple-700 ${!isDemoAvailable ? "opacity-50 cursor-not-allowed" : ""}`}
-                                      asChild={isDemoAvailable}
+                                      asChild={!!isDemoAvailable} // Ensured boolean value
                                       disabled={!isDemoAvailable}
                                       onClick={(e) => !isDemoAvailable && e.preventDefault()}
                                     >
@@ -344,17 +343,15 @@ export default function Projects() {
                               </DialogContent>
                             </Dialog>
                           </div>
-                          
-                          {/* Demo button on card */}
+
                           <TooltipProvider>
-                            <Tooltip open={!isDemoAvailable ? undefined : false}> {/* Control tooltip visibility */}
+                            <Tooltip open={!isDemoAvailable ? undefined : false}>
                               <TooltipTrigger asChild>
-                                {/* Wrap button in a span for tooltip to work when button is disabled */}
-                                <span tabIndex={!isDemoAvailable ? 0 : -1}> 
-                                  <Button 
-                                    size="sm" 
+                                <span tabIndex={!isDemoAvailable ? 0 : -1}>
+                                  <Button
+                                    size="sm"
                                     className={`bg-purple-600 hover:bg-purple-700 ${!isDemoAvailable ? "opacity-50 cursor-not-allowed" : ""}`}
-                                    asChild={isDemoAvailable}
+                                    asChild={!!isDemoAvailable} // Ensured boolean value
                                     disabled={!isDemoAvailable}
                                     onClick={(e) => !isDemoAvailable && e.preventDefault()}
                                   >
@@ -385,7 +382,7 @@ export default function Projects() {
                     </div>
                   </Interactive3DCard>
                 </motion.div>
-              )
+              );
             })}
           </div>
 
