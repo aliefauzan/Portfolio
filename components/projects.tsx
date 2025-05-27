@@ -27,6 +27,38 @@ import Image from "next/image"
 // Updated projects array with image URLs and detailed information
 const projects = [
   {
+    title: "Bangkit Project - PeduliPasal",
+    date: "December 2024",
+    description:
+      "A collaborative project developed during the Bangkit Academy program, focusing on legal information accessibility.",
+    detailedDescription:
+      "PeduliPasal is a legal learning platform designed to make legal information more accessible to the public. The project uses machine learning and natural language processing to interpret legal queries and provide relevant information from legal databases. As part of the Bangkit Academy 2024 program led by Google, Tokopedia, Gojek, & Traveloka, this project demonstrates the application of AI technologies to solve real-world problems.",
+    challenges:
+      "Processing and understanding legal language, building a comprehensive database of legal information, and creating user-friendly interfaces for complex legal queries.",
+    outcomes:
+      "Developed a functioning prototype that helps users access and understand legal information more easily. The platform has potential applications in legal education, public legal services, and legal research.",
+    technologies: ["Express.Js", "Firebase", "Flask", "Vertex Ai", "Cloud Run", "Docker", "Jupyter Notebook", "Machine Learning", "NLP", "Python", "TensorFlow", "Legal Databases", "Flask", "GCP"],
+    links: { github: "https://github.com/aliefauzan/Bangkit-Project-PeduliPasal", demo: "https://pedulipasal.example.com" }, // Example actual demo link
+    image: "/placeholder.svg?height=400&width=600", // Replace with actual image
+    imageAlt: "PeduliPasal interface showing legal information search results",
+  },
+  {
+    title: "keretaXpress - Mobile Application",
+    date: "May 2025",
+    description:
+      "A Dart-based mobile application developed as a course project for Advanced Application Programming.",
+    detailedDescription:
+      "This mobile application was developed as the final project for the Advanced Application Programming course. Built with Flutter/Dart, it demonstrates implementation of modern mobile development practices including state management, API integration, and responsive UI design.",
+    challenges:
+      "Implementing complex state management across multiple screens, integrating with backend services, and ensuring a consistent user experience across different device sizes and platforms.",
+    outcomes:
+      "Successfully delivered a fully functional mobile application that showcases advanced programming concepts and provides a practical solution to real-world problems.",
+    technologies: ["Laravel", "Flutter", "Cloud Run", "Supabase", "Docker", "Cloud Build", "REST API", "State Management", "Mobile Development"],
+    links: { github: "https://github.com/aliefauzan/KeretaXpress", demo: "#" },
+    image: "/placeholder.svg?height=400&width=600", // Replace with actual image
+    imageAlt: "TubesABP mobile application interface showing the main screen",
+  },
+  {
     title: "Youtube Summarizer and QnA",
     date: "May 2025",
     description:
@@ -37,26 +69,10 @@ const projects = [
       "Extracting and processing YouTube video transcripts efficiently, implementing NLP algorithms for accurate summarization, and creating a responsive user interface for a seamless experience.",
     outcomes:
       "Created a practical tool that helps users quickly understand YouTube video content without watching the entire video, saving time and improving information accessibility.",
-    technologies: ["TypeScript", "Next.js", "Natural Language Processing", "YouTube API", "React", "Tailwind CSS", "Shadcn UI", "Vercel"],
+    technologies: ["TypeScript", "Next.js", "NLP", "YouTube API", "React", "Tailwind CSS", "Shadcn UI", "Vercel"],
     links: { github: "https://github.com/aliefauzan/Youtube-Summarizer-and-QnA", demo: "#" },
     image: "/placeholder.svg?height=400&width=600", // Replace with actual image
     imageAlt: "Youtube Summarizer and QnA interface showing a video summary and Q&A section",
-  },
-  {
-    title: "TubesABP - Mobile Application",
-    date: "May 2025",
-    description:
-      "A Dart-based mobile application developed as a course project for Advanced Application Programming.",
-    detailedDescription:
-      "This mobile application was developed as the final project for the Advanced Application Programming course. Built with Flutter/Dart, it demonstrates implementation of modern mobile development practices including state management, API integration, and responsive UI design.",
-    challenges:
-      "Implementing complex state management across multiple screens, integrating with backend services, and ensuring a consistent user experience across different device sizes and platforms.",
-    outcomes:
-      "Successfully delivered a fully functional mobile application that showcases advanced programming concepts and provides a practical solution to real-world problems.",
-    technologies: ["Dart", "Flutter", "Firebase", "REST API", "State Management", "Mobile Development", "GetX", "Android Studio"],
-    links: { github: "https://github.com/aliefauzan/TubesABP", demo: "#" },
-    image: "/placeholder.svg?height=400&width=600", // Replace with actual image
-    imageAlt: "TubesABP mobile application interface showing the main screen",
   },
   {
     title: "Temperature and Humidity Sensor",
@@ -69,27 +85,10 @@ const projects = [
       "Ensuring reliable sensor readings, optimizing power consumption for battery-operated deployments, and implementing robust wireless communication protocols for data transmission.",
     outcomes:
       "Created a functional IoT monitoring system capable of long-term environmental data collection with minimal maintenance requirements. The system provides accurate readings and can be easily expanded with additional sensors.",
-    technologies: ["C++", "ESP8266", "DHT22", "IoT", "MQTT", "Arduino", "Embedded Systems", "PlatformIO"],
+    technologies: ["Go", "Cloud Run", "ESP8266", "DHT22", "IoT", "MQTT", "Arduino", "Embedded Systems", "PlatformIO"],
     links: { github: "https://github.com/aliefauzan/temperature-and-humidity-sensor", demo: "#" },
     image: "/placeholder.svg?height=400&width=600", // Replace with actual image
     imageAlt: "Temperature and humidity sensor setup showing hardware connections and data readout",
-  },
-  // ... other projects remain the same
-  {
-    title: "Bangkit Project - PeduliPasal",
-    date: "December 2024",
-    description:
-      "A collaborative project developed during the Bangkit Academy program, focusing on legal information accessibility.",
-    detailedDescription:
-      "PeduliPasal is a legal learning platform designed to make legal information more accessible to the public. The project uses machine learning and natural language processing to interpret legal queries and provide relevant information from legal databases. As part of the Bangkit Academy 2024 program led by Google, Tokopedia, Gojek, & Traveloka, this project demonstrates the application of AI technologies to solve real-world problems.",
-    challenges:
-      "Processing and understanding legal language, building a comprehensive database of legal information, and creating user-friendly interfaces for complex legal queries.",
-    outcomes:
-      "Developed a functioning prototype that helps users access and understand legal information more easily. The platform has potential applications in legal education, public legal services, and legal research.",
-    technologies: ["Jupyter Notebook", "Machine Learning", "NLP", "Python", "TensorFlow", "Legal Databases", "Flask", "GCP"],
-    links: { github: "https://github.com/aliefauzan/Bangkit-Project-PeduliPasal", demo: "https://pedulipasal.example.com" }, // Example actual demo link
-    image: "/placeholder.svg?height=400&width=600", // Replace with actual image
-    imageAlt: "PeduliPasal interface showing legal information search results",
   },
   {
     title: "Machine Learning with Google Cloud",
@@ -122,38 +121,6 @@ const projects = [
     links: { github: "https://github.com/aliefauzan/Submission-Backend-Dengan-GoogleCloud", demo: "#" },
     image: "/placeholder.svg?height=400&width=600", // Replace with actual image
     imageAlt: "Backend architecture diagram showing API endpoints and cloud services",
-  },
-  {
-    title: "Mini Games Collection",
-    date: "May 2024",
-    description:
-      "A collection of mini-games implemented in C++, showcasing fundamental programming concepts and game development.",
-    detailedDescription:
-      "This project includes multiple mini-games implemented in C++, such as Tic-Tac-Toe, Number Guessing, and Simple RPG battles. The games demonstrate core programming concepts including conditional logic, loops, functions, and basic data structures. The collection serves as both an educational project for learning C++ and a showcase of game development fundamentals.",
-    challenges:
-      "Implementing engaging gameplay mechanics, designing intuitive user interfaces in a console environment, and creating efficient algorithms for game logic.",
-    outcomes:
-      "Developed a collection of functional games that demonstrate proficiency in C++ programming and fundamental game development concepts. The project serves as both entertainment and an educational resource.",
-    technologies: ["C++", "Game Development", "Console Applications", "Algorithms", "Data Structures"],
-    links: { github: "https://github.com/aliefauzan/Mini-Games", demo: "#" },
-    image: "/placeholder.svg?height=400&width=600", // Replace with actual image
-    imageAlt: "Console interface showing a mini-game in action",
-  },
-  {
-    title: "To-Do List Application",
-    date: "April 2024",
-    description:
-      "A C++ console application for managing tasks and to-do items with basic CRUD operations.",
-    detailedDescription:
-      "This To-Do List application allows users to create, read, update, and delete tasks through a command-line interface. Built in C++, it demonstrates implementation of fundamental data structures and file I/O operations. The application includes features such as task prioritization, due dates, and category management.",
-    challenges:
-      "Designing an intuitive command-line interface, implementing efficient data storage and retrieval, and ensuring data persistence between application sessions.",
-    outcomes:
-      "Created a practical task management tool that helps users organize their activities. The application demonstrates proper implementation of CRUD operations and effective use of file-based data storage.",
-    technologies: ["C++", "Data Structures", "File I/O", "Console Application", "CRUD Operations"],
-    links: { github: "https://github.com/aliefauzan/To-Do-List", demo: "#" },
-    image: "/placeholder.svg?height=400&width=600", // Replace with actual image
-    imageAlt: "To-Do List application showing task management interface",
   },
 ]
 
