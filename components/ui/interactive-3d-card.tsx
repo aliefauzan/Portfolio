@@ -63,6 +63,8 @@ const Interactive3DCard = ({ children, className = "", glowEffect = false }: Int
             : ''
         }`}
       />
+      {/* Pokemon Shine Overlay */}
+      <div className="pokemon-shine-overlay" />
       {children}
     </motion.div>
   )
