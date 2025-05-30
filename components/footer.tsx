@@ -28,7 +28,7 @@ export default function Footer() {
               <span className="sr-only">Email</span>
             </Link>
             <Link
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/alief-fauzan1/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
@@ -37,7 +37,7 @@ export default function Footer() {
               <span className="sr-only">LinkedIn</span>
             </Link>
             <Link
-              href="https://github.com"
+              href="https://github.com/aliefauzan"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
