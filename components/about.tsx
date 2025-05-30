@@ -85,7 +85,7 @@ export default function About() {
             </div>
 
             <div className="md:col-span-3">
-              <Interactive3DCard animated={true} className="rounded-xl p-6">
+              <Interactive3DCard className="rounded-xl p-6">
                 <p className="text-lg mb-3">
                   <span className="font-medium">Informatics student at Telkom University</span> specializing in
                   <span className="text-primary font-medium"> Backend Development</span> and
