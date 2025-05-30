@@ -138,7 +138,7 @@ export default function Contact() {
                     <div>
                       <h3 className="font-medium group-hover:text-primary transition-colors">LinkedIn</h3>
                       <Link
-                        href="https://linkedin.com"
+                        href="https://www.linkedin.com/in/alief-fauzan1/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-muted-foreground hover:text-primary transition-colors"
@@ -160,7 +160,7 @@ export default function Contact() {
                     <div>
                       <h3 className="font-medium group-hover:text-primary transition-colors">GitHub</h3>
                       <Link
-                        href="https://github.com"
+                        href="https://github.com/aliefauzan"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-muted-foreground hover:text-primary transition-colors"
