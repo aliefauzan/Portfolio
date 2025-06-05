@@ -43,20 +43,35 @@ const projects = [
     imageAlt: "PeduliPasal interface showing legal information search results",
   },
   {
-    title: "keretaXpress - Mobile Application",
+    title: "KeretaXpress - Web Application",
+    date: "June 2025",
+    description:
+      "A modern web application for train ticket booking and management, built with React and integrated with cloud services.",
+    detailedDescription:
+      "KeretaXpress Web is a comprehensive train ticket booking platform that provides users with an intuitive interface to search, book, and manage train tickets. The application features real-time train schedules, seat selection, payment integration, and user account management. Built with modern web technologies and deployed on Google Cloud Run for scalability and reliability.",
+    challenges:
+      "Creating a responsive and user-friendly interface for complex booking flows, implementing real-time data updates for train schedules and availability, and optimizing performance for fast loading times across different devices.",
+    outcomes:
+      "Successfully deployed a fully functional web application that streamlines the train booking process. The platform provides users with a seamless booking experience and demonstrates proficiency in full-stack web development and cloud deployment.",    technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Cloud Run", "Supabase", "Docker", "REST API"],
+    links: { github: "https://github.com/aliefauzan/KeretaXpress/tree/main/web_version", demo: "https://keretaxpress-frontend-404674793847.asia-southeast2.run.app/" },
+    image: "/keretaxpress-web.png",
+    imageAlt: "KeretaXpress web application showing train booking interface with purple gradient background, statistics cards, and booking form",
+  },
+  {
+    title: "KeretaXpress - Mobile Application",
     date: "May 2025",
     description:
-      "A Dart-based mobile application developed as a course project for Advanced Application Programming.",
+      "A Flutter-based mobile application for train ticket booking, providing native mobile experience for Android and iOS.",
     detailedDescription:
-      "This mobile application was developed as the final project for the Advanced Application Programming course. Built with Flutter/Dart, it demonstrates implementation of modern mobile development practices including state management, API integration, and responsive UI design.",
+      "This mobile application was developed as the final project for the Advanced Application Programming course. Built with Flutter/Dart, it demonstrates implementation of modern mobile development practices including state management, API integration, and responsive UI design. The app provides a native mobile experience for train ticket booking with offline capabilities and push notifications.",
     challenges:
-      "Implementing complex state management across multiple screens, integrating with backend services, and ensuring a consistent user experience across different device sizes and platforms.",
+      "Implementing complex state management across multiple screens, integrating with backend services, ensuring a consistent user experience across different device sizes and platforms, and optimizing for mobile-specific features like offline functionality.",
     outcomes:
-      "Successfully delivered a fully functional mobile application that showcases advanced programming concepts and provides a practical solution to real-world problems.",
-    technologies: ["Laravel", "Flutter", "Cloud Run", "Supabase", "Docker", "Cloud Build", "REST API", "State Management", "Mobile Development"],
+      "Successfully delivered a fully functional mobile application that showcases advanced programming concepts and provides a practical solution for mobile train booking. The app demonstrates expertise in cross-platform mobile development.",
+    technologies: ["Flutter", "Dart", "Laravel", "Cloud Run", "Supabase", "Docker", "Cloud Build", "REST API", "State Management", "Mobile Development"],
     links: { github: "https://github.com/aliefauzan/KeretaXpress", demo: "#" },
-    image: "/placeholder.svg?height=400&width=600", // Replace with actual image
-    imageAlt: "TubesABP mobile application interface showing the main screen",
+    image: "/keretaxpress-mobile.png",
+    imageAlt: "KeretaXpress mobile application interface showing the main screen",
   },
   {
     title: "Youtube Summarizer and QnA",
