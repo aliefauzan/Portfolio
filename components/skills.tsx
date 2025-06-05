@@ -51,7 +51,7 @@ export default function Skills() {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <Interactive3DCard intensity="medium">
+            <Interactive3DCard>
               <Card className="holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 h-full">
                 <CardHeader>
                   <CardTitle className="flex items-center">
@@ -87,7 +87,7 @@ export default function Skills() {
               </Card>
             </Interactive3DCard>
 
-            <Interactive3DCard intensity="medium">
+            <Interactive3DCard>
               <Card className="holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 h-full">
                 <CardHeader>
                   <CardTitle className="flex items-center">
@@ -143,7 +143,7 @@ export default function Skills() {
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
               >
-                <Interactive3DCard intensity="high" className="h-full">
+                <Interactive3DCard className="h-full">
                   <Card className="holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 hover:shadow-xl transition-all duration-300 h-full group">
                     <CardContent className="p-6 flex flex-col items-center text-center h-full">
                       <div className="p-3 rounded-lg bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-blue-500/20 transition-all duration-300 mb-4 iridescent-glow">

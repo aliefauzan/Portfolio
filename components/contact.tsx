@@ -79,7 +79,7 @@ export default function Contact() {
       </h2>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <Interactive3DCard intensity="medium">
+            <Interactive3DCard>
               <Card className="holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 h-full">
                 <CardHeader>
                   <CardTitle>Contact Information</CardTitle>
@@ -173,7 +173,7 @@ export default function Contact() {
               </Card>
             </Interactive3DCard>
 
-            <Interactive3DCard intensity="medium">
+            <Interactive3DCard>
               <Card className="holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 h-full">
                 <CardHeader>
                   <CardTitle>Send a Message</CardTitle>

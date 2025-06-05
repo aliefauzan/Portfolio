@@ -238,7 +238,7 @@ export default function Tools() {
                           className="floating"
                           style={{ animationDelay: `${(toolIndex * 0.1 + categoryIndex * 0.2)}s` }}
                         >
-                          <Interactive3DCard intensity="high">
+                          <Interactive3DCard>
                             <a
                               href={tool.url}
                               target="_blank"
@@ -295,7 +295,7 @@ export default function Tools() {
                     className="floating"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <Interactive3DCard intensity="medium" className="h-full">
+                    <Interactive3DCard className="h-full">
                       <div className="holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 rounded-lg p-4 shadow-sm hover:shadow-xl transition-all duration-300 h-full group">
                         <div className="flex items-start h-full">
                           <div className="mr-3 mt-1 p-2 rounded-lg bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-blue-500/20 transition-all duration-300 iridescent-glow">

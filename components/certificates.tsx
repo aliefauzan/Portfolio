@@ -595,7 +595,7 @@ export default function Certificates() {
                       className="flex-shrink-0 w-[320px] sm:w-[340px] mx-3 first:ml-0 last:mr-0 floating"
                       whileHover={{ y: -6, transition: { duration: 0.2 } }}
                     >
-                      <Interactive3DCard intensity="low" className="h-full">
+                      <Interactive3DCard className="h-full">
                         <Card className="h-full holographic-border bg-gradient-to-br from-card/90 via-card/80 to-primary/5 backdrop-blur-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 relative flex flex-col group shadow-lg">
                           <CardHeader className="flex flex-row items-start gap-3 pb-3 pt-4 px-4 relative z-[1]">
                             <div className="p-2.5 rounded-lg bg-gradient-to-tr from-primary/10 via-primary/5 to-transparent border border-primary/20 group-hover:scale-105 transition-transform duration-300 iridescent-glow">

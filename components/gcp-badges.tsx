@@ -211,7 +211,7 @@ export default function GCPBadges() {
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
                   >
-                    <Interactive3DCard glowEffect={true} intensity="low">
+                    <Interactive3DCard glowEffect={true}>
                       <Card className="h-full overflow-hidden hover:shadow-md transition-all duration-300 group">
                         <div className="holographic-border h-full">
                           <div className="bg-card rounded-lg h-full">
@@ -255,7 +255,7 @@ export default function GCPBadges() {
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
                   >
-                    <Interactive3DCard glowEffect={true} intensity="low">
+                    <Interactive3DCard glowEffect={true}>
                       <Card className="h-full overflow-hidden hover:shadow-md transition-all duration-300 group">
                         <div className="holographic-border h-full">
                           <div className="bg-card rounded-lg h-full">
