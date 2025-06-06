@@ -35,8 +35,8 @@ export default function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300 dark:bg-[#050814] bg-background/80 backdrop-blur-sm",
-        scrolled ? "shadow-sm" : "",
+        "fixed top-0 w-full z-50 transition-all duration-300 bg-background/95 backdrop-blur-sm border-b border-border/40",
+        scrolled ? "shadow-lg bg-background/98" : "",
       )}
     >
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -75,7 +75,7 @@ export default function Navbar() {
 
       {/* Mobile Navigation Menu */}
       {isOpen && isMobile && (
-        <div className="fixed inset-0 top-16 dark:bg-[#050814] bg-background z-40 p-4">
+        <div className="fixed inset-0 top-16 bg-background/98 backdrop-blur-sm z-40 p-4 border-t border-border/40">
           <nav className="flex flex-col space-y-4">
             {navItems.map((item) => (
               <Link

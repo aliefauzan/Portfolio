@@ -74,7 +74,7 @@ export default function Hero() {
                     let textColorClass = "";
                     if (lineIndex === 0) { 
                       if (wordIndex < 2) { 
-                        textColorClass = "text-white"; 
+                        textColorClass = "text-foreground"; // Use theme-aware foreground color instead of text-white
                       } else {
                         textColorClass = "text-primary"; 
                       }

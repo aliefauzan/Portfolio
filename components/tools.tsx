@@ -205,9 +205,9 @@ export default function Tools() {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
-<h2 className="text-3xl md:text-4xl font-bold mb-12 text-center rainbow-text">
-        <span className="relative inline-block"> {/* Wrapper for text and underline */}
-          Languages & <span className="text-primary">Tools</span>
+<h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">
+        <span className="relative inline-block rainbow-text"> {/* Wrapper for text and underline */}
+          Languages & Tools
           <motion.div
             className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
             initial={{ width: "0%" }}
@@ -216,6 +216,10 @@ export default function Tools() {
           ></motion.div>
         </span>
       </h2>
+      
+      <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
+        Showcasing my expertise and proficiency across diverse programming languages, frameworks, and development tools that power modern software solutions.
+      </p>
 
           <Tabs defaultValue="technical" className="w-full">
             <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8 holographic-border border-transparent bg-gradient-to-r from-background/80 to-primary/10">

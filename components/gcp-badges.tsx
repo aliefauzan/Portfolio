@@ -166,7 +166,7 @@ export default function GCPBadges() {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
+          <div className="flex items-center justify-center gap-3 mb-6">
             <Award className="h-8 w-8 text-primary floating-animation" />
 <h2 className="text-3xl md:text-4xl font-bold text-center">
         <span className="relative inline-block"> {/* Wrapper for text and underline */}
@@ -181,7 +181,7 @@ export default function GCPBadges() {
       </h2>
           </div>
 
-          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
             Showcasing my expertise and achievements in Google Cloud Platform technologies through official Google Cloud
             badges and certifications.
           </p>

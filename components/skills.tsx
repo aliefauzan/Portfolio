@@ -46,9 +46,21 @@ export default function Skills() {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center rainbow-text">
-            My <span className="text-primary">Skills</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">
+            <span className="relative inline-block rainbow-text">
+              My Skills
+              <motion.div
+                className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+                initial={{ width: "0%" }}
+                animate={inView ? { width: "100%" } : { width: "0%" }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              ></motion.div>
+            </span>
           </h2>
+          
+          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
+            A comprehensive overview of my technical expertise and soft skills developed through education, professional experience, and continuous learning.
+          </p>
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <Interactive3DCard>

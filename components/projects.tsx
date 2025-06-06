@@ -167,8 +167,7 @@ export default function Projects() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+        >          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">
             <span className="relative inline-block">
               My <span className="rainbow-text">Projects</span>
               <motion.div

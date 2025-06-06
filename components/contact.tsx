@@ -66,9 +66,9 @@ export default function Contact() {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
-<h2 className="text-3xl md:text-4xl font-bold mb-12 text-center rainbow-text">
-        <span className="relative inline-block"> {/* Wrapper for text and underline */}
-          Get In <span className="text-primary">Touch</span>
+<h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">
+        <span className="relative inline-block rainbow-text"> {/* Wrapper for text and underline */}
+          Get In Touch
           <motion.div
             className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
             initial={{ width: "0%" }}
@@ -77,6 +77,10 @@ export default function Contact() {
           ></motion.div>
         </span>
       </h2>
+      
+      <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
+        Ready to collaborate on innovative projects or discuss exciting opportunities. Let's connect and bring your ideas to life together.
+      </p>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <Interactive3DCard>

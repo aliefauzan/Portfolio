@@ -52,7 +52,7 @@ export default function About() {
         >
           <div className="text-center mb-10">
             <h2 className="text-4xl font-bold mb-2 relative inline-block">
-              About <span className="text-primary">Me</span>
+              About <span className="rainbow-text">Me</span>
               <motion.div
                 className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
                 initial={{ width: "0%" }}
