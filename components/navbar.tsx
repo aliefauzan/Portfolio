@@ -14,8 +14,6 @@ const navItems = [
   { name: "Experience & Education", href: "#experience-education" },
   { name: "Projects", href: "#projects" },
   { name: "Certificates", href: "#certificates" },
-  { name: "GCP Badges", href: "#gcp-badges" },
-  { name: "Tools", href: "#tools" },
   { name: "Contact", href: "#contact" },
 ]
 
