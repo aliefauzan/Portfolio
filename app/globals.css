@@ -25,10 +25,14 @@
     --ring: 221.2 83.2% 53.3%;
     --radius: 0.5rem;
 
-    /* Define HSL versions if not already present for iridescent-glow */
-    /* These are examples, adjust to your actual theme colors */
+    /* Enhanced HSL versions for light theme special effects */
     --primary-hsl: 221.2 83.2% 53.3%; 
-    --accent-hsl: 210 40% 96.1%;   
+    --accent-hsl: 210 40% 96.1%;
+    
+    /* Light theme specific gradient colors */
+    --gradient-from: 220 70% 95%;
+    --gradient-via: 225 60% 92%;
+    --gradient-to: 230 50% 89%;
   }
 
   .dark {
@@ -39,7 +43,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
     --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%; /* Changed from 210 40% 98% for better contrast on primary bg */
+    --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
@@ -52,9 +56,14 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
 
-    /* Define HSL versions for dark mode if not already present */
+    /* Dark theme HSL versions */
     --primary-hsl: 217.2 91.2% 59.8%;
     --accent-hsl: 217.2 32.6% 17.5%;
+    
+    /* Dark theme specific gradient colors */
+    --gradient-from: 222.2 84% 4.9%;
+    --gradient-via: 217.2 32.6% 8%;
+    --gradient-to: 220 40% 12%;
   }
 }
 
@@ -132,12 +141,12 @@
     padding: 1px; 
     background: linear-gradient(
       90deg,
-      hsl(var(--primary) / 0.7), 
-      hsl(var(--accent) / 0.5), 
-      hsl(var(--secondary-foreground) / 0.4), 
-      hsl(var(--primary) / 0.3), 
-      hsl(var(--accent) / 0.5),
-      hsl(var(--primary) / 0.7)
+      hsl(var(--primary) / 0.8), 
+      hsl(220 70% 70% / 0.6), 
+      hsl(240 60% 75% / 0.5), 
+      hsl(var(--primary) / 0.4), 
+      hsl(260 50% 80% / 0.5),
+      hsl(var(--primary) / 0.8)
     );
     background-size: 300% 100%;
     animation: shimmer-border-effect 6s linear infinite;
@@ -152,6 +161,19 @@
     z-index: 0; 
     pointer-events: none;
     will-change: background-position;
+  }
+
+  /* Dark theme holographic border */
+  .dark .holographic-border::before {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--primary) / 0.7), 
+      hsl(var(--accent) / 0.5), 
+      hsl(var(--secondary-foreground) / 0.4), 
+      hsl(var(--primary) / 0.3), 
+      hsl(var(--accent) / 0.5),
+      hsl(var(--primary) / 0.7)
+    );
   }
 
   @keyframes shimmer-border-effect {
@@ -181,6 +203,22 @@
     height: 250%;
     background: conic-gradient(
       from 0deg at 50% 50%,
+      hsla(220, 70%, 85%, 0.15),
+      hsla(var(--primary-hsl, 221 83% 53%) / 0.2),
+      hsla(240, 60%, 80%, 0.12),
+      hsla(260, 50%, 85%, 0.08),
+      hsla(var(--primary-hsl, 221 83% 53%) / 0.15),
+      hsla(280, 40%, 90%, 0.1)
+    );
+    animation: spin-glow 6s linear infinite;
+    z-index: 0; 
+    opacity: 0.8; 
+  }
+  
+  /* Dark theme iridescent glow */
+  .dark .iridescent-glow::after {
+    background: conic-gradient(
+      from 0deg at 50% 50%,
       hsla(var(--primary-hsl, 217 91% 59%) / 0.01),
       hsla(var(--primary-hsl, 217 91% 59%) / 0.1),
       hsla(var(--accent-hsl, 217 32% 17%) / 0.08),
@@ -188,10 +226,9 @@
       hsla(var(--primary-hsl, 217 91% 59%) / 0.1),
       hsla(var(--primary-hsl, 217 91% 59%) / 0.01)
     );
-    animation: spin-glow 6s linear infinite;
-    z-index: 0; 
-    opacity: 0.6; 
+    opacity: 0.6;
   }
+  
   .iridescent-glow > svg { 
     position: relative;
     z-index: 1; 
@@ -200,20 +237,41 @@
     100% { transform: rotate(360deg); }
   }
 
-  /* Rainbow Text */
+  /* Rainbow Text - Light theme with darker, more visible colors */
   .rainbow-text {
+    /* Fallback color for browsers that don't support background-clip: text */
+    color: hsl(var(--primary));
     background-image: linear-gradient(to right, 
-      hsl(var(--primary)), 
-      hsl(var(--primary) / 0.8), 
-      hsl(var(--accent) / 0.9), 
-      hsl(var(--secondary-foreground) / 0.7),
-      hsl(var(--primary))
+      hsl(220 95% 25%), 
+      hsl(240 90% 30%), 
+      hsl(260 85% 25%), 
+      hsl(280 80% 30%),
+      hsl(300 85% 25%),
+      hsl(320 90% 25%)
     );
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
     animation: rainbow-flow 8s ease-in-out infinite;
     background-size: 300% 100%;
+  }
+  
+  /* Only make transparent if gradient clipping is supported */
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    .rainbow-text {
+      color: transparent;
+    }
+  }
+
+  /* Dark theme rainbow text - brighter colors for better visibility */
+  .dark .rainbow-text {
+    background-image: linear-gradient(to right, 
+      hsl(var(--primary)), 
+      hsl(220 70% 70%), 
+      hsl(240 60% 75%), 
+      hsl(260 50% 70%),
+      hsl(280 60% 75%),
+      hsl(var(--primary))
+    );
   }
 
   @keyframes rainbow-flow {
@@ -271,6 +329,29 @@
     border-radius: inherit; /* Inherit from parent card */
     background: linear-gradient(
       125deg,
+      hsla(0, 0%, 100%, 0.2) 15%,
+      hsla(220, 70%, 80%, 0.15) 25%,
+      hsla(240, 60%, 85%, 0.1) 35%,
+      hsla(0, 0%, 100%, 0.25) 45%,
+      hsla(260, 50%, 90%, 0.1) 55%,
+      hsla(0, 0%, 100%, 0.0) 65%,
+      hsla(280, 40%, 95%, 0.15) 75%,
+      hsla(0, 0%, 100%, 0.2) 85%,
+      hsla(300, 30%, 90%, 0.1) 95%
+    );
+    background-size: 400% 400%;
+    mix-blend-mode: soft-light;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1; /* Above card content, below interactive elements if any */
+    animation: pokemon-shine-animation 8s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  /* Dark theme version of Pokemon shine */
+  .dark .pokemon-shine-overlay {
+    background: linear-gradient(
+      125deg,
       hsla(0, 0%, 100%, 0.15) 15%,
       hsla(0, 0%, 100%, 0.05) 30%,
       hsla(0, 0%, 100%, 0.1) 45%,
@@ -279,13 +360,7 @@
       hsla(0, 0%, 100%, 0.05) 90%,
       hsla(0, 0%, 100%, 0.1) 100%
     );
-    background-size: 400% 400%;
-    mix-blend-mode: overlay; /* Soft light or overlay can work well */
-    opacity: 0;
-    pointer-events: none;
-    z-index: 1; /* Above card content, below interactive elements if any */
-    animation: pokemon-shine-animation 8s linear infinite;
-    transition: opacity 0.3s ease-in-out;
+    mix-blend-mode: overlay;
   }
 
   .card-3d:hover .pokemon-shine-overlay {
@@ -295,6 +370,38 @@
   @keyframes pokemon-shine-animation {
     0% { background-position: 200% 200%; }
     100% { background-position: -200% -200%; }
+  }
+
+  /* Theme-aware background gradients */
+  .bg-gradient-light {
+    background: linear-gradient(135deg, 
+      hsl(var(--gradient-from)), 
+      hsl(var(--gradient-via)), 
+      hsl(var(--gradient-to))
+    );
+  }
+  
+  .bg-gradient-section {
+    background: linear-gradient(to bottom, 
+      hsl(var(--background)), 
+      hsl(var(--muted) / 0.3)
+    );
+  }
+  
+  .bg-gradient-section-alt {
+    background: linear-gradient(to right, 
+      hsl(var(--background)), 
+      hsl(var(--muted) / 0.2)
+    );
+  }
+
+  /* Light theme specific section background */
+  .bg-gradient-subtle {
+    background: linear-gradient(135deg, 
+      hsl(var(--background)), 
+      hsl(var(--primary) / 0.03),
+      hsl(var(--background))
+    );
   }
 
   /* Timeline specific styles - you had these in TSX via Tailwind */

@@ -107,9 +107,9 @@ export default function AnimatedBackground() {
         const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius * pulseIntensity)
 
         // More vibrant blue colors for light mode
-        gradient.addColorStop(0, "rgba(59, 130, 246, 0.18)") // Brighter blue with higher opacity
-        gradient.addColorStop(0.3, "rgba(79, 140, 255, 0.12)")
-        gradient.addColorStop(0.7, "rgba(99, 150, 255, 0.06)")
+        gradient.addColorStop(0, "rgba(59, 130, 246, 0.25)") // Increased opacity for better visibility
+        gradient.addColorStop(0.3, "rgba(79, 140, 255, 0.18)")
+        gradient.addColorStop(0.7, "rgba(99, 150, 255, 0.08)")
         gradient.addColorStop(1, "rgba(255, 255, 255, 0)")
 
         ctx.fillStyle = gradient
