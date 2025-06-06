@@ -225,11 +225,41 @@
   /* Base style for card-3d if needed, though most is handled by dynamic transform */
   .card-3d {
     position: relative; /* Ensure stacking context for overlay */
+    will-change: transform; /* Optimize for smooth animations */
+    backface-visibility: hidden; /* Better 3D performance */
     /* Add any base static styles for the 3D card wrapper here */
     /* For example, if you want a default transition for non-JS scenarios or base perspective */
     /* perspective: 1000px; /* This is applied dynamically in the style prop */
     /* transform-style: preserve-3d; /* Also applied dynamically */
     /* transition: transform 0.1s linear; /* Example base transition for non-hover states */
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .card-3d {
+      /* Reduce 3D complexity on mobile for better performance */
+      transform-style: flat !important;
+      will-change: transform; /* Keep for smooth touch interactions */
+    }
+    
+    .pokemon-shine-overlay {
+      /* Reduce animation complexity on mobile */
+      animation-duration: 6s; /* Slightly faster */
+      opacity: 0.3; /* Reduce default opacity for better battery life */
+    }
+    
+    .card-3d:hover .pokemon-shine-overlay,
+    .card-3d:active .pokemon-shine-overlay {
+      opacity: 0.4; /* Reduced intensity on mobile */
+    }
+  }
+
+  /* Touch-specific optimizations */
+  @media (hover: none) and (pointer: coarse) {
+    .card-3d {
+      /* Further optimizations for touch-only devices */
+      transform-style: flat !important;
+    }
   }
 
   .pokemon-shine-overlay {

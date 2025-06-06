@@ -4,7 +4,7 @@ import { useState } from "react"
 import React from 'react'
 import { cn } from '@/lib/utils'
 
-// 3D Interactive Card Component
+// Interactive Card Component
 interface Interactive3DCardProps {
   children: React.ReactNode
   className?: string
@@ -12,37 +12,16 @@ interface Interactive3DCardProps {
 }
 
 const Interactive3DCard = ({ children, className = "", glowEffect = false }: Interactive3DCardProps) => {
-  const [rotateX, setRotateX] = useState(0)
-  const [rotateY, setRotateY] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    const centerX = rect.width / 2
-    const centerY = rect.height / 2
-    const newRotateX = (y - centerY) / 12
-    const newRotateY = (centerX - x) / 12
-    setRotateX(newRotateX)
-    setRotateY(newRotateY)
-  }
 
   const handleMouseEnter = () => setIsHovered(true)
   const handleMouseLeave = () => {
-    setRotateX(0)
-    setRotateY(0)
     setIsHovered(false)
   }
 
   return (
     <motion.div
       className={`card-3d ${glowEffect ? 'iridescent-glow' : ''} ${className}`}
-      style={{
-        transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
-        transformStyle: "preserve-3d",
-      }}
-      onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       whileHover={{ scale: 1.02 }}
