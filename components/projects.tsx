@@ -37,7 +37,7 @@ const projects = [
       "Processing and understanding legal language, building a comprehensive database of legal information, and creating user-friendly interfaces for complex legal queries.",
     outcomes:
       "Developed a functioning prototype that helps users access and understand legal information more easily. The platform has potential applications in legal education, public legal services, and legal research.",
-    technologies: ["Express.Js", "Firebase", "Flask", "Vertex Ai", "Cloud Run", "Docker", "Jupyter Notebook", "Machine Learning", "NLP", "Python", "TensorFlow", "Legal Databases", "Flask", "GCP"],
+    technologies: ["Cloud Run", "Firebase", "Vertex AI", "Docker", "GCP", "Flask", "Express.js", "Python", "TensorFlow", "Machine Learning", "NLP", "Jupyter Notebook", "Legal Databases"],
     links: { github: "https://github.com/aliefauzan/Bangkit-Project-PeduliPasal", demo: "https://pedulipasal.example.com" }, // Example actual demo link
     image: "/placeholder.svg?height=400&width=600", // Replace with actual image
     imageAlt: "PeduliPasal interface showing legal information search results",
@@ -52,7 +52,8 @@ const projects = [
     challenges:
       "Creating a responsive and user-friendly interface for complex booking flows, implementing real-time data updates for train schedules and availability, and optimizing performance for fast loading times across different devices.",
     outcomes:
-      "Successfully deployed a fully functional web application that streamlines the train booking process. The platform provides users with a seamless booking experience and demonstrates proficiency in full-stack web development and cloud deployment.",    technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Cloud Run", "Supabase", "Docker", "REST API"],
+      "Successfully deployed a fully functional web application that streamlines the train booking process. The platform provides users with a seamless booking experience and demonstrates proficiency in full-stack web development and cloud deployment.",    
+      technologies: ["Cloud Run", "Supabase", "Docker", "Cloud Build", "Laravel", "REST API", "React", "Next.js", "TypeScript", "Tailwind CSS"],
     links: { github: "https://github.com/aliefauzan/KeretaXpress/tree/main/web_version", demo: "https://keretaxpress-frontend-404674793847.asia-southeast2.run.app/" },
     image: "/keretaxpress-web.png",
     imageAlt: "KeretaXpress web application showing train booking interface with purple gradient background, statistics cards, and booking form",
@@ -68,7 +69,7 @@ const projects = [
       "Implementing complex state management across multiple screens, integrating with backend services, ensuring a consistent user experience across different device sizes and platforms, and optimizing for mobile-specific features like offline functionality.",
     outcomes:
       "Successfully delivered a fully functional mobile application that showcases advanced programming concepts and provides a practical solution for mobile train booking. The app demonstrates expertise in cross-platform mobile development.",
-    technologies: ["Flutter", "Dart", "Laravel", "Cloud Run", "Supabase", "Docker", "Cloud Build", "REST API", "State Management", "Mobile Development"],
+    technologies: ["Cloud Run", "Supabase", "Docker", "Cloud Build", "Laravel", "REST API", "Flutter", "Dart", "State Management", "Mobile Development"],
     links: { github: "https://github.com/aliefauzan/KeretaXpress", demo: "#" },
     image: "/keretaxpress-mobile.png",
     imageAlt: "KeretaXpress mobile application interface showing the main screen",
@@ -84,7 +85,7 @@ const projects = [
       "Extracting and processing YouTube video transcripts efficiently, implementing NLP algorithms for accurate summarization, and creating a responsive user interface for a seamless experience.",
     outcomes:
       "Created a practical tool that helps users quickly understand YouTube video content without watching the entire video, saving time and improving information accessibility.",
-    technologies: ["TypeScript", "Next.js", "NLP", "YouTube API", "React", "Tailwind CSS", "Shadcn UI", "Vercel"],
+    technologies: ["Vercel", "YouTube API", "NLP", "TypeScript", "Next.js", "React", "Tailwind CSS", "Shadcn UI"],
     links: { github: "https://github.com/aliefauzan/Youtube-Summarizer-and-QnA", demo: "#" },
     image: "/placeholder.svg?height=400&width=600", // Replace with actual image
     imageAlt: "Youtube Summarizer and QnA interface showing a video summary and Q&A section",
@@ -100,7 +101,7 @@ const projects = [
       "Ensuring reliable sensor readings, optimizing power consumption for battery-operated deployments, and implementing robust wireless communication protocols for data transmission.",
     outcomes:
       "Created a functional IoT monitoring system capable of long-term environmental data collection with minimal maintenance requirements. The system provides accurate readings and can be easily expanded with additional sensors.",
-    technologies: ["Go", "Cloud Run", "ESP8266", "DHT22", "IoT", "MQTT", "Arduino", "Embedded Systems", "PlatformIO"],
+    technologies: ["Cloud Run", "Go", "ESP8266", "DHT22", "IoT", "Arduino", "Embedded Systems", "PlatformIO"],
     links: { github: "https://github.com/aliefauzan/temperature-and-humidity-sensor", demo: "#" },
     image: "/placeholder.svg?height=400&width=600", // Replace with actual image
     imageAlt: "Temperature and humidity sensor setup showing hardware connections and data readout",
@@ -116,7 +117,7 @@ const projects = [
       "Optimizing machine learning models for cloud deployment, managing compute resources efficiently, and implementing secure API endpoints for model inference.",
     outcomes:
       "Successfully deployed machine learning models to Google Cloud, providing accessible AI capabilities through well-designed APIs. The project demonstrates practical implementation of cloud-based machine learning workflows.",
-    technologies: ["JavaScript", "Google Cloud", "Machine Learning", "TensorFlow", "API Development", "Cloud Functions", "Vertex AI"],
+    technologies: ["Google Cloud", "Vertex AI", "Cloud Functions", "TensorFlow", "Machine Learning", "API Development", "JavaScript"],
     links: { github: "https://github.com/aliefauzan/Submission-MachineLearning-GoogleCloud", demo: "#" },
     image: "/placeholder.svg?height=400&width=600", // Replace with actual image
     imageAlt: "Machine learning model architecture diagram showing cloud deployment",
@@ -132,7 +133,7 @@ const projects = [
       "Designing efficient database schemas, implementing secure authentication mechanisms, and optimizing application performance in a cloud environment.",
     outcomes:
       "Created a fully functional backend application that demonstrates proficiency in cloud-native development. The solution provides reliable API endpoints and efficiently manages data persistence and retrieval operations.",
-    technologies: ["JavaScript", "Node.js", "Express", "Google Cloud", "RESTful API", "NoSQL", "Authentication", "Cloud Run"],
+    technologies: ["Google Cloud", "Cloud Run", "NoSQL", "Node.js", "Express", "RESTful API", "Authentication", "JavaScript"],
     links: { github: "https://github.com/aliefauzan/Submission-Backend-Dengan-GoogleCloud", demo: "#" },
     image: "/placeholder.svg?height=400&width=600", // Replace with actual image
     imageAlt: "Backend architecture diagram showing API endpoints and cloud services",
