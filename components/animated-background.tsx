@@ -173,14 +173,14 @@ export default function AnimatedBackground() {
         // Draw particle
         let particleColor
         if (theme === "dark") {
-          particleColor = `rgba(255, 255, 255, ${particle.opacity * 0.4})`
+          particleColor = `rgba(255, 255, 255, ${particle.opacity * 0.45})`
         } else {
           // Use a mix of blue and purple particles in light mode
           const isBlue = index % 3 !== 0 // 2/3 of particles are blue, 1/3 are purple
           if (isBlue) {
-            particleColor = `rgba(59, 130, 246, ${particle.opacity * 0.35})`
+            particleColor = `rgba(59, 130, 246, ${particle.opacity * 0.6})`
           } else {
-            particleColor = `rgba(139, 92, 246, ${particle.opacity * 0.3})`
+            particleColor = `rgba(139, 92, 246, ${particle.opacity * 0.6})`
           }
         }
 
