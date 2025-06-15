@@ -26,7 +26,7 @@
     --radius: 0.5rem;
 
     /* Enhanced HSL versions for light theme special effects */
-    --primary-hsl: 221.2 83.2% 53.3%; 
+    --primary-hsl: 221.2 83.2% 53.3; 
     --accent-hsl: 210 40% 96.1%;
     
     /* Light theme specific gradient colors */
@@ -421,4 +421,22 @@
     // Add 'floating' class for animation
   }
   */
+}
+
+/* Scrolling animation for the technologies section */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
 }
