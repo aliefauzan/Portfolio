@@ -15,9 +15,9 @@ export default function Home() {
       <About />
       <ExperienceEducation />
       <Projects />
+      <Tools />
       <Certificates />
       <GCPBadges />
-      <Tools />
       <Contact />
       <Footer />
     </main>
