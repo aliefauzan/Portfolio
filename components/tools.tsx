@@ -117,9 +117,6 @@ export default function Tools() {
           </p>
 
           <div className="relative overflow-hidden py-10">
-            {/* Gradient overlays */}
-            <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background via-background to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background via-background to-transparent z-10 pointer-events-none"></div>
             
             {/* Scrolling container */}
             <div className="flex animate-scroll">
