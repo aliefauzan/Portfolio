@@ -5,6 +5,8 @@ import Link from "next/link"
 import { Download, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "./mode-toggle"
+import GooeyNav from "./GooeyNav"
+import SimpleNav from "./SimpleNav"
 import { cn } from "@/lib/utils"
 import { useMobile } from "@/hooks/use-mobile"
 
@@ -16,6 +18,12 @@ const navItems = [
   { name: "Certificates", href: "#certificates" },
   { name: "Contact", href: "#contact" },
 ]
+
+// Convert to GooeyNav format
+const gooeyNavItems = navItems.map(item => ({
+  label: item.name,
+  href: item.href
+}))
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -40,27 +48,27 @@ export default function Navbar() {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="#home" className="text-xl font-bold">
           <span className="text-primary">Alief</span> Fauzan
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={`text-sm font-medium transition-colors hover:text-primary`}
-            >
-              {item.name}
+        </Link>        {/* Desktop Navigation with Gooey Effect */}
+        <div className="hidden md:flex items-center space-x-6">          <GooeyNav
+            items={gooeyNavItems}
+            particleCount={8}
+            particleDistances={[60, 5]}
+            particleR={50}
+            animationTime={400}
+            timeVariance={150}
+            colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+            initialActiveIndex={0}
+          />
+          <div className="flex items-center space-x-4 ml-6">
+            <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer" download>
+              <Button variant="outline" size="sm">
+                <Download className="mr-2 h-4 w-4" />
+                Resume
+              </Button>
             </Link>
-          ))}
-          <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer" download>
-            <Button variant="outline" size="sm">
-              <Download className="mr-2 h-4 w-4" />
-              Resume
-            </Button>
-          </Link>
-          <ModeToggle />
-        </nav>
+            <ModeToggle />
+          </div>
+        </div>
 
         {/* Mobile Navigation Toggle */}
         <div className="flex items-center md:hidden">
@@ -69,34 +77,27 @@ export default function Navbar() {
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
-      </div>
-
-      {/* Mobile Navigation Menu */}
+      </div>      {/* Mobile Navigation Menu */}
       {isOpen && isMobile && (
         <div className="fixed inset-0 top-16 bg-background/98 backdrop-blur-sm z-40 p-4 border-t border-border/40">
-          <nav className="flex flex-col space-y-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-lg font-medium p-2 hover:bg-muted rounded-md"
-                onClick={() => setIsOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
+          <SimpleNav 
+            items={gooeyNavItems}
+            onItemClick={() => setIsOpen(false)}
+            className="mb-6"
+          />
+          <div className="border-t border-border/40 pt-4">
             <Link
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               download
-              className="text-lg font-medium p-2 hover:bg-muted rounded-md flex items-center"
+              className="flex items-center text-lg font-medium p-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-all duration-200"
               onClick={() => setIsOpen(false)}
             >
-              <Download className="mr-2 h-4 w-4" />
+              <Download className="mr-3 h-5 w-5" />
               Download Resume
             </Link>
-          </nav>
+          </div>
         </div>
       )}
     </header>
