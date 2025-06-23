@@ -62,7 +62,7 @@ export default function About() {
       scale: 1,
       rotateX: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 20,
         stiffness: 300,
         duration: 0.6,
@@ -81,7 +81,7 @@ export default function About() {
       scale: 1,
       rotate: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 15,
         stiffness: 200,
         duration: 0.8,
@@ -100,7 +100,7 @@ export default function About() {
       x: 0,
       filter: "blur(0px)",
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 25,
         stiffness: 200,
         duration: 0.7,
