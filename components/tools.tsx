@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import Image from "next/image"
+import GlareHover from "@/components/ui/GlareHover"
 
 // All the technologies and tools as an array for the scrolling animation
 const technologies = [
@@ -117,8 +118,7 @@ export default function Tools() {
           </p>
 
           <div className="relative overflow-hidden py-10">
-            
-            {/* Scrolling container */}
+              {/* Scrolling container */}
             <div className="flex animate-scroll">
               {/* Duplicate the technologies array for seamless loop */}
               {[...technologies, ...technologies].map((tech, index) => (
@@ -126,13 +126,26 @@ export default function Tools() {
                   key={index}
                   className="flex-shrink-0 mx-4 md:mx-6 group"
                 >
-                  <Image
-                    src={tech.icon}
-                    alt={tech.name}
-                    width={80}
-                    height={80}
-                    className="w-12 h-12 md:w-20 md:h-20 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:opacity-80"
-                  />
+                  <GlareHover
+                    glareColor="#ffffff"
+                    glareOpacity={0.1}
+                    glareAngle={-45}
+                    glareSize={150}
+                    transitionDuration={600}
+                    background="transparent"
+                    borderColor="transparent"
+                    width="auto"
+                    height="auto"
+                    className="rounded-lg p-2"
+                  >
+                    <Image
+                      src={tech.icon}
+                      alt={tech.name}
+                      width={80}
+                      height={80}
+                      className="w-12 h-12 md:w-20 md:h-20 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:opacity-80"
+                    />
+                  </GlareHover>
                 </div>
               ))}
             </div>

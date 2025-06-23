@@ -19,8 +19,9 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip" // Added Tooltip imports
-import { Interactive3DCard } from "@/components/ui/interactive-3d-card" // Assuming this is a custom component
+} from "@/components/ui/tooltip"
+import { Interactive3DCard } from "@/components/ui/interactive-3d-card"
+import GlareHover from "@/components/ui/GlareHover"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -186,17 +187,24 @@ export default function Projects() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
             {displayedProjects.map((project, index) => {
               const isDemoAvailable = project.links.demo && project.links.demo !== "#";
-              return (
-                <motion.div
+              return (                <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <Interactive3DCard
-                    className="h-full" // animated={true} prop removed
+                  <GlareHover
+                    glareColor="hsl(var(--primary))"
+                    glareOpacity={0.2}
+                    glareAngle={-30}
+                    glareSize={200}
+                    transitionDuration={800}
+                    className="h-full"
                   >
-                    <div className="bg-card rounded-lg overflow-hidden h-full flex flex-col shadow-md hover:shadow-xl hover:border-primary/50 border border-transparent transition-all duration-300">
+                    <Interactive3DCard
+                      className="h-full"
+                    >
+                      <div className="bg-card rounded-lg overflow-hidden h-full flex flex-col shadow-md hover:shadow-xl hover:border-primary/50 border border-transparent transition-all duration-300">
                       <div className="relative h-48 overflow-hidden bg-muted">
                         <Image
                           src={project.image || "/placeholder.svg"}
@@ -236,11 +244,12 @@ export default function Projects() {
                         </div>
 
                         <div className="flex justify-between items-center mt-auto">
-                          <div className="flex gap-2">
-                            <Button variant="outline" size="sm" asChild>
+                          <div className="flex gap-2">                            <Button variant="outline" size="sm" asChild>
                               <Link href={project.links.github} target="_blank" rel="noopener noreferrer">
-                                <Github className="mr-2 h-4 w-4" />
-                                View Code
+                                <span className="flex items-center">
+                                  <Github className="mr-2 h-4 w-4" />
+                                  View Code
+                                </span>
                               </Link>
                             </Button>
 
@@ -295,14 +304,14 @@ export default function Projects() {
                                     </div>
                                   </div>
 
-                                  <div className="flex flex-col sm:flex-row justify-between gap-3 pt-6 border-t border-border/30">
-                                    <Button variant="outline" className="w-full sm:w-auto" asChild>
+                                  <div className="flex flex-col sm:flex-row justify-between gap-3 pt-6 border-t border-border/30">                                    <Button variant="outline" className="w-full sm:w-auto" asChild>
                                       <Link href={project.links.github} target="_blank" rel="noopener noreferrer">
-                                        <Github className="mr-2 h-4 w-4" />
-                                        View Code
+                                        <span className="flex items-center">
+                                          <Github className="mr-2 h-4 w-4" />
+                                          View Code
+                                        </span>
                                       </Link>
-                                    </Button>
-                                    <Button
+                                    </Button>                                    <Button
                                       className={`w-full sm:w-auto bg-purple-600 hover:bg-purple-700 ${!isDemoAvailable ? "opacity-50 cursor-not-allowed" : ""}`}
                                       asChild={!!isDemoAvailable} // Ensured boolean value
                                       disabled={!isDemoAvailable}
@@ -310,8 +319,10 @@ export default function Projects() {
                                     >
                                       {isDemoAvailable ? (
                                         <Link href={project.links.demo} target="_blank" rel="noopener noreferrer">
-                                          <ExternalLink className="mr-2 h-4 w-4" />
-                                          Live Demo
+                                          <span className="flex items-center">
+                                            <ExternalLink className="mr-2 h-4 w-4" />
+                                            Live Demo
+                                          </span>
                                         </Link>
                                       ) : (
                                         <>
@@ -357,12 +368,11 @@ export default function Projects() {
                                 </TooltipContent>
                               )}
                             </Tooltip>
-                          </TooltipProvider>
-
-                        </div>
+                          </TooltipProvider>                        </div>
                       </div>
                     </div>
                   </Interactive3DCard>
+                  </GlareHover>
                 </motion.div>
               );
             })}

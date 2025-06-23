@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { toast } from "@/hooks/use-toast"
 import { Interactive3DCard } from "@/components/ui/interactive-3d-card"
+import GlareHover from "@/components/ui/GlareHover"
 
 export default function Contact() {
   const [ref, inView] = useInView({
@@ -80,74 +81,81 @@ export default function Contact() {
       
       <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
         Ready to collaborate on innovative projects or discuss exciting opportunities. Let's connect and bring your ideas to life together.
-      </p>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      </p>          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <Interactive3DCard>
-              <Card className="holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 h-full">
-                <CardHeader>
-                  <CardTitle>Contact Information</CardTitle>
-                  <CardDescription>Feel free to reach out through any of these channels</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <motion.div 
-                    className="flex items-center gap-4 group"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                  >
-                    <div className="bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-blue-500/20 p-3 rounded-full transition-all duration-300 iridescent-glow">
-                      <Mail className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium group-hover:text-primary transition-colors">Email</h3>
-                      <Link
-                        href="mailto:afindo.mi01@gmail.com"
-                        className="text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        afindo.mi01@gmail.com
-                      </Link>
-                    </div>
-                  </motion.div>
+              <GlareHover
+                glareColor="#06b6d4"
+                glareOpacity={0.15}
+                glareAngle={-45}
+                glareSize={200}
+                transitionDuration={800}
+                background="transparent"
+                borderColor="transparent"
+                className="w-full h-full"
+              >
+                <Card className="holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 h-full">
+                  <CardHeader>
+                    <CardTitle>Contact Information</CardTitle>
+                    <CardDescription>Feel free to reach out through any of these channels</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <motion.div 
+                      className="flex items-center gap-4 group"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                      transition={{ duration: 0.5, delay: 0.1 }}
+                    >
+                      <div className="bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-blue-500/20 p-3 rounded-full transition-all duration-300 iridescent-glow">
+                        <Mail className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-medium group-hover:text-primary transition-colors">Email</h3>
+                        <Link
+                          href="mailto:afindo.mi01@gmail.com"
+                          className="text-muted-foreground hover:text-primary transition-colors"
+                        >
+                          afindo.mi01@gmail.com
+                        </Link>
+                      </div>
+                    </motion.div>
 
-                  <motion.div 
-                    className="flex items-center gap-4 group"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                  >
-                    <div className="bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-blue-500/20 p-3 rounded-full transition-all duration-300 iridescent-glow">
-                      <Phone className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium group-hover:text-primary transition-colors">Phone</h3>
-                      <Link
-                        href="tel:+628114157827"
-                        className="text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        +628114157827
-                      </Link>
-                    </div>
-                  </motion.div>
+                    <motion.div 
+                      className="flex items-center gap-4 group"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                    >
+                      <div className="bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-blue-500/20 p-3 rounded-full transition-all duration-300 iridescent-glow">
+                        <Phone className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-medium group-hover:text-primary transition-colors">Phone</h3>
+                        <Link
+                          href="tel:+628114157827"
+                          className="text-muted-foreground hover:text-primary transition-colors"
+                        >
+                          +628114157827
+                        </Link>
+                      </div>
+                    </motion.div>
 
-                  <motion.div 
-                    className="flex items-center gap-4 group"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                  >
-                    <div className="bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-blue-500/20 p-3 rounded-full transition-all duration-300 iridescent-glow">
-                      <Linkedin className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium group-hover:text-primary transition-colors">LinkedIn</h3>
-                      <Link
-                        href="https://www.linkedin.com/in/alief-fauzan1/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        Connect on LinkedIn
+                    <motion.div 
+                      className="flex items-center gap-4 group"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                      transition={{ duration: 0.5, delay: 0.3 }}
+                    >
+                      <div className="bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-blue-500/20 p-3 rounded-full transition-all duration-300 iridescent-glow">
+                        <Linkedin className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-medium group-hover:text-primary transition-colors">LinkedIn</h3>
+                        <Link
+                          href="https://www.linkedin.com/in/alief-fauzan1/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground hover:text-primary transition-colors"
+                        >                        Connect on LinkedIn
                       </Link>
                     </div>
                   </motion.div>
@@ -175,10 +183,21 @@ export default function Contact() {
                   </motion.div>
                 </CardContent>
               </Card>
+              </GlareHover>
             </Interactive3DCard>
 
             <Interactive3DCard>
-              <Card className="holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 h-full">
+              <GlareHover
+                glareColor="#8b5cf6"
+                glareOpacity={0.15}
+                glareAngle={-30}
+                glareSize={200}
+                transitionDuration={800}
+                background="transparent"
+                borderColor="transparent"
+                className="w-full h-full"
+              >
+                <Card className="holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 h-full">
                 <CardHeader>
                   <CardTitle>Send a Message</CardTitle>
                   <CardDescription>I'll get back to you as soon as possible</CardDescription>
@@ -277,11 +296,11 @@ export default function Contact() {
                             Send Message
                           </>
                         )}
-                      </Button>
-                    </motion.div>
+                      </Button>                    </motion.div>
                   </form>
                 </CardContent>
               </Card>
+              </GlareHover>
             </Interactive3DCard>
           </div>
         </motion.div>

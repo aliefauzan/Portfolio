@@ -21,6 +21,7 @@ import { Slider } from "@/components/ui/slider"
 import Link from "next/link"
 import Image from "next/image"
 import { Interactive3DCard } from "@/components/ui/interactive-3d-card" // Assuming this path is correct
+import GlareHover from "@/components/ui/GlareHover"
 
 const certificates = [  
   {
@@ -607,9 +608,18 @@ export default function Certificates() {
                       transition={{ duration: 0.3, delay: index * 0.03 }}
                       className="flex-shrink-0 w-[320px] sm:w-[340px] mx-3 first:ml-0 last:mr-0 floating"
                       whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                    >
-                      <Interactive3DCard className="h-full">
-                        <Card className="h-full holographic-border bg-gradient-to-br from-card/90 via-card/80 to-primary/5 backdrop-blur-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 relative flex flex-col group shadow-lg">
+                    >                      <Interactive3DCard className="h-full">
+                        <GlareHover
+                          glareColor="#f59e0b"
+                          glareOpacity={0.12}
+                          glareAngle={-45}
+                          glareSize={180}
+                          transitionDuration={700}
+                          background="transparent"
+                          borderColor="transparent"
+                          className="w-full h-full"
+                        >
+                          <Card className="h-full holographic-border bg-gradient-to-br from-card/90 via-card/80 to-primary/5 backdrop-blur-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 relative flex flex-col group shadow-lg">
                           <CardHeader className="flex flex-row items-start gap-3 pb-3 pt-4 px-4 relative z-[1]">
                             <div className="p-2.5 rounded-lg bg-gradient-to-tr from-primary/10 via-primary/5 to-transparent border border-primary/20 group-hover:scale-105 transition-transform duration-300 iridescent-glow">
                               <Award className="h-6 w-6 text-primary flex-shrink-0" />
@@ -708,27 +718,30 @@ export default function Certificates() {
                                       </div>
                                     </section>
                                   </div>
-                                </div>
-                                <DialogFooter className="pt-6 mt-6 border-t border-border/20">
+                                </div>                                <DialogFooter className="pt-6 mt-6 border-t border-border/20">
                                   <Button className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-primary-foreground" asChild>
                                     <Link href={cert.link} target="_blank" rel="noopener noreferrer">
-                                      <ExternalLink className="mr-2 h-4 w-4" />
-                                      Verify Certificate
+                                      <span className="flex items-center">
+                                        <ExternalLink className="mr-2 h-4 w-4" />
+                                        Verify Certificate
+                                      </span>
                                     </Link>
                                   </Button>
                                 </DialogFooter>
                               </DialogContent>
                             </Dialog>
 
-                            {/* This is the button (line 712 in previous context) that might have caused an error if button.tsx was incorrect */}
-                            <Button size="sm" className="text-xs sm:text-sm h-9 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-primary-foreground" asChild>
+                            {/* This is the button (line 712 in previous context) that might have caused an error if button.tsx was incorrect */}                            <Button size="sm" className="text-xs sm:text-sm h-9 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-primary-foreground" asChild>
                               <Link href={cert.link} target="_blank" rel="noopener noreferrer">
-                                <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
-                                Verify
+                                <span className="flex items-center">
+                                  <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
+                                  Verify
+                                </span>
                               </Link>
                             </Button>
                           </CardFooter>
                         </Card>
+                        </GlareHover>
                       </Interactive3DCard>
                     </motion.div>
                   ))
