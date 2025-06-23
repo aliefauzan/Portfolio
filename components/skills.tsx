@@ -1,10 +1,8 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Code2, Database, Cloud, Server, Languages, Lightbulb } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
 import { Interactive3DCard } from "@/components/ui/interactive-3d-card"
 
 const technicalSkills = [
