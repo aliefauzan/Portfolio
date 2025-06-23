@@ -33,6 +33,13 @@
     --gradient-from: 220 70% 95%;
     --gradient-via: 225 60% 92%;
     --gradient-to: 230 50% 89%;
+
+    /* GooeyNav global variables */
+    --linear-ease: linear(0, 0.068, 0.19 2.7%, 0.804 8.1%, 1.037, 1.199 13.2%, 1.245, 1.27 15.8%, 1.274, 1.272 17.4%, 1.249 19.1%, 0.996 28%, 0.949, 0.928 33.3%, 0.926, 0.933 36.8%, 1.001 45.6%, 1.013, 1.019 50.8%, 1.018 54.4%, 1 63.1%, 0.995 68%, 1.001 85%, 1);
+    --color-1: hsl(var(--primary) / 0.8);
+    --color-2: hsl(var(--primary) / 0.6);
+    --color-3: hsl(var(--primary) / 0.4);
+    --color-4: hsl(var(--primary) / 0.3);
   }
 
   .dark {
@@ -436,3 +443,41 @@
 .animate-scroll {
   animation: scroll 40s linear infinite;
 }
+
+/* Gooey Nav enhancements for better theme integration */
+.gooey-nav-enhanced {
+    /* Ensure smooth particle animations */
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+  
+  /* Better visibility for particles in both themes */
+  .gooey-nav .particle {
+    will-change: transform, opacity;
+  }
+  
+  /* Smooth transitions for theme changes */
+  .gooey-nav * {
+    transition-property: color, background-color, border-color;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+  }
+
+  /* Performance optimization for mobile */
+  @media (max-width: 768px) {
+    .gooey-nav .effect.filter {
+      filter: blur(4px) contrast(50) blur(0);
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .gooey-nav .particle,
+    .gooey-nav .point {
+      animation-duration: 0.1s !important;
+    }
+    
+    .gooey-nav .effect.filter {
+      filter: none;
+    }
+  }
