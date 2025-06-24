@@ -39,8 +39,8 @@ const projects = [
     outcomes:
       "Developed a functioning prototype that helps users access and understand legal information more easily. The platform has potential applications in legal education, public legal services, and legal research.",
     technologies: ["Cloud Run", "Firebase", "Vertex AI", "Docker", "GCP", "Flask", "Express.js", "Python", "TensorFlow", "Machine Learning", "NLP", "Jupyter Notebook", "Legal Databases"],
-    links: { github: "https://github.com/aliefauzan/Bangkit-Project-PeduliPasal", demo: "https://pedulipasal.example.com" }, // Example actual demo link
-    image: "/placeholder.svg?height=400&width=600", // Replace with actual image
+    links: { github: "https://github.com/aliefauzan/Bangkit-Project-PeduliPasal", demo: "#" }, // Example actual demo link
+    image: "/peduliPasal.png", // Replace with actual image
     imageAlt: "PeduliPasal interface showing legal information search results",
   },
   {
