@@ -110,30 +110,43 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       height: `${pos.height}px`,
     };
     Object.assign(filterRef.current.style, styles);
-  };
-  const handleClick = (e: React.MouseEvent<HTMLLIElement>, index: number) => {
+  };  const handleClick = (e: React.MouseEvent<HTMLLIElement>, index: number, href: string) => {
     const liEl = e.currentTarget;
-    if (activeIndex === index) return;
+    
+    // Always update the visual state
     setActiveIndex(index);
     updateEffectPosition(liEl);
-      if (filterRef.current) {
+    
+    if (filterRef.current) {
       const particles = filterRef.current.querySelectorAll(`.${styles.particle}`);
       particles.forEach((p) => filterRef.current!.removeChild(p));
       makeParticles(filterRef.current);
     }
+    
+    // Ensure navigation happens - use a small delay to allow animation to start
+    setTimeout(() => {
+      const targetElement = document.querySelector(href);
+      if (targetElement) {
+        targetElement.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest' 
+        });
+      }
+    }, 50);
   };
-
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLAnchorElement>,
-    index: number
+    index: number,
+    href: string
   ) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       const liEl = e.currentTarget.parentElement;
-      if (liEl) {
-        handleClick(
+      if (liEl) {        handleClick(
           { currentTarget: liEl } as React.MouseEvent<HTMLLIElement>,
-          index
+          index,
+          href
         );
       }
     }
@@ -179,11 +192,11 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
               className={`py-2 px-3 relative cursor-pointer transition-[color_text-shadow] duration-300 ease text-sm font-medium ${
                 activeIndex === index ? styles.navActive : ""
               }`}
-              onClick={(e) => handleClick(e, index)}
+              onClick={(e) => handleClick(e, index, item.href)}
             >
               <a
                 href={item.href}
-                onKeyDown={(e) => handleKeyDown(e, index)}
+                onKeyDown={(e) => handleKeyDown(e, index, item.href)}
                 className="outline-none hover:text-primary transition-colors"
               >
                 {item.label}
