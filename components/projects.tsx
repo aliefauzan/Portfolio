@@ -88,7 +88,7 @@ const projects = [
       "Created a practical tool that helps users quickly understand YouTube video content without watching the entire video, saving time and improving information accessibility.",
     technologies: ["Vercel", "YouTube API", "NLP", "TypeScript", "Next.js", "React", "Tailwind CSS", "Shadcn UI"],
     links: { github: "https://github.com/aliefauzan/Youtube-Summarizer-and-QnA", demo: "#" },
-    image: "/placeholder.svg?height=400&width=600", // Replace with actual image
+    image: "/ytSum.png",
     imageAlt: "Youtube Summarizer and QnA interface showing a video summary and Q&A section",
   },
   {
