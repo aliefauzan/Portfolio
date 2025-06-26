@@ -87,7 +87,7 @@ const projects = [
     outcomes:
       "Created a practical tool that helps users quickly understand YouTube video content without watching the entire video, saving time and improving information accessibility.",
     technologies: ["Vercel", "YouTube API", "NLP", "TypeScript", "Next.js", "React", "Tailwind CSS", "Shadcn UI"],
-    links: { github: "https://github.com/aliefauzan/Youtube-Summarizer-and-QnA", demo: "#" },
+    links: { github: "https://github.com/aliefauzan/Youtube-Summarizer-and-QnA", demo: "https://v0-youtube-video-summarizer-lovat.vercel.app/" },
     image: "/ytSum.png",
     imageAlt: "Youtube Summarizer and QnA interface showing a video summary and Q&A section",
   },
@@ -104,7 +104,7 @@ const projects = [
       "Created a functional IoT monitoring system capable of long-term environmental data collection with minimal maintenance requirements. The system provides accurate readings and can be easily expanded with additional sensors.",
     technologies: ["Cloud Run", "Go", "ESP8266", "DHT22", "IoT", "Arduino", "Embedded Systems", "PlatformIO"],
     links: { github: "https://github.com/aliefauzan/temperature-and-humidity-sensor", demo: "#" },
-    image: "/placeholder.svg?height=400&width=600", // Replace with actual image
+    image: "/iot.png", 
     imageAlt: "Temperature and humidity sensor setup showing hardware connections and data readout",
   },
   {
