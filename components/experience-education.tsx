@@ -63,45 +63,55 @@ export default function ExperienceEducation() {
                 <div className="relative border-l-2 border-primary pl-8 pb-8">
                   <div className="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-0 floating-animation"></div>
 
-                  <Interactive3DCard>
-                    <GlareHover
-                      glareColor="#10b981"
-                      glareOpacity={0.15}
-                      glareAngle={-45}
-                      glareSize={220}
-                      transitionDuration={900}
-                      background="transparent"
-                      borderColor="transparent"
-                      className="w-full h-full"
-                    >
-                      <Card className="mb-8 relative overflow-hidden holographic-border border-transparent shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
-                        {/* Holographic border wrapper and inner bg-card div removed */}
-                        <CardHeader>
-                          <div className="flex flex-wrap justify-between items-start gap-2">
-                            <div>
-                              <CardTitle className="text-xl rainbow-text">
-                                <span className="text-primary">Bangkit Academy Cloud Computing Cohort</span>
-                              </CardTitle>
-                              <CardDescription className="mt-2">September 2024 – January 2025</CardDescription>
+                  <motion.div
+                    initial={{ opacity: 0, x: -50, scale: 0.98 }}
+                    animate={inView ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: -50, scale: 0.98 }}
+                    transition={{ 
+                      duration: 0.7, 
+                      ease: [0.25, 0.1, 0.25, 1.0],
+                      delay: 0.1
+                    }}
+                    className="transform-gpu"
+                  >
+                    <Interactive3DCard>
+                      <GlareHover
+                        glareColor="#10b981"
+                        glareOpacity={0.15}
+                        glareAngle={-45}
+                        glareSize={220}
+                        transitionDuration={900}
+                        background="transparent"
+                        borderColor="transparent"
+                        className="w-full h-full"
+                      >
+                        <Card className="mb-8 relative overflow-hidden holographic-border border-transparent shadow-sm hover:shadow-xl transform-gpu transition-all duration-300">
+                          <CardHeader>
+                            <div className="flex flex-wrap justify-between items-start gap-2">
+                              <div>
+                                <CardTitle className="text-xl rainbow-text">
+                                  <span className="text-primary">Bangkit Academy Cloud Computing Cohort</span>
+                                </CardTitle>
+                                <CardDescription className="mt-2">September 2024 – January 2025</CardDescription>
+                              </div>
+                              <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0">
+                                Google, Gojek, Tokopedia, Traveloka
+                              </Badge>
                             </div>
-                            <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0">
-                              Google, Gojek, Tokopedia, Traveloka
-                            </Badge>
-                          </div>
-                        </CardHeader>
-                        <CardContent>
-                          <ul className="list-disc pl-5 space-y-2">
-                            <li>Completed an intensive program led by Google, Gojek, Tokopedia, Traveloka</li>
-                            <li>
-                              Focused on advanced cloud computing topics (GCP), backend integration, DevOps workflows, and
-                              project management
-                            </li>
-                            <li>Gained expertise in deploying applications using Docker, Kubernetes, and Terraform</li>
-                          </ul>
-                        </CardContent>
-                      </Card>
-                    </GlareHover>
-                  </Interactive3DCard>
+                          </CardHeader>
+                          <CardContent>
+                            <ul className="list-disc pl-5 space-y-2">
+                              <li>Completed an intensive program led by Google, Gojek, Tokopedia, Traveloka</li>
+                              <li>
+                                Focused on advanced cloud computing topics (GCP), backend integration, DevOps workflows, and
+                                project management
+                              </li>
+                              <li>Gained expertise in deploying applications using Docker, Kubernetes, and Terraform</li>
+                            </ul>
+                          </CardContent>
+                        </Card>
+                      </GlareHover>
+                    </Interactive3DCard>
+                  </motion.div>
 
                   <div className="text-center">
                     <motion.div
@@ -119,18 +129,28 @@ export default function ExperienceEducation() {
               <TabsContent value="education">
                 <div className="relative border-l-2 border-primary pl-8 pb-8">
                   <div className="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-0 floating-animation"></div>
-                  <Interactive3DCard>
-                    <GlareHover
-                      glareColor="#3b82f6"
-                      glareOpacity={0.15}
-                      glareAngle={-30}
-                      glareSize={200}
-                      transitionDuration={800}
-                      background="transparent"
-                      borderColor="transparent"
-                      className="w-full h-full"
-                    >
-                      <Card className="relative overflow-hidden holographic-border border-transparent shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
+                  <motion.div
+                    initial={{ opacity: 0, x: 50, scale: 0.98 }}
+                    animate={inView ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 50, scale: 0.98 }}
+                    transition={{ 
+                      duration: 0.7, 
+                      ease: [0.25, 0.1, 0.25, 1.0],
+                      delay: 0.2
+                    }}
+                    className="transform-gpu"
+                  >
+                    <Interactive3DCard>
+                      <GlareHover
+                        glareColor="#3b82f6"
+                        glareOpacity={0.15}
+                        glareAngle={-30}
+                        glareSize={200}
+                        transitionDuration={800}
+                        background="transparent"
+                        borderColor="transparent"
+                        className="w-full h-full"
+                      >
+                        <Card className="relative overflow-hidden holographic-border border-transparent shadow-sm hover:shadow-xl transform-gpu transition-all duration-300">
                         {/* Holographic border wrapper and inner bg-card div removed */}
                         <CardHeader className="flex flex-row items-start gap-4">
                           <motion.div
@@ -172,6 +192,7 @@ export default function ExperienceEducation() {
                       </Card>
                     </GlareHover>
                   </Interactive3DCard>
+                  </motion.div>
                 </div>
               </TabsContent>
             </Tabs>
