@@ -71,20 +71,23 @@ export default function ExperienceEducation() {
                       ease: [0.25, 0.1, 0.25, 1.0],
                       delay: 0.1
                     }}
-                    className="transform-gpu"
+                    className="transform-gpu mb-8"
                   >
                     <Interactive3DCard>
                       <GlareHover
+                        width="100%"
+                        height="auto"
                         glareColor="#10b981"
-                        glareOpacity={0.15}
+                        glareOpacity={0.12}
                         glareAngle={-45}
-                        glareSize={220}
-                        transitionDuration={900}
+                        glareSize={180}
+                        transitionDuration={700}
                         background="transparent"
                         borderColor="transparent"
-                        className="w-full h-full"
+                        borderRadius="12px"
+                        className="w-full h-auto"
                       >
-                        <Card className="mb-8 relative overflow-hidden holographic-border border-transparent shadow-sm hover:shadow-xl transform-gpu transition-all duration-300">
+                        <Card className="relative overflow-hidden holographic-border border-transparent shadow-sm hover:shadow-xl transform-gpu transition-all duration-300">
                           <CardHeader>
                             <div className="flex flex-wrap justify-between items-start gap-2">
                               <div>
@@ -141,14 +144,17 @@ export default function ExperienceEducation() {
                   >
                     <Interactive3DCard>
                       <GlareHover
+                        width="100%"
+                        height="auto"
                         glareColor="#3b82f6"
-                        glareOpacity={0.15}
+                        glareOpacity={0.12}
                         glareAngle={-30}
-                        glareSize={200}
-                        transitionDuration={800}
+                        glareSize={180}
+                        transitionDuration={700}
                         background="transparent"
                         borderColor="transparent"
-                        className="w-full h-full"
+                        borderRadius="12px"
+                        className="w-full h-auto"
                       >
                         <Card className="relative overflow-hidden holographic-border border-transparent shadow-sm hover:shadow-xl transform-gpu transition-all duration-300">
                         {/* Holographic border wrapper and inner bg-card div removed */}
