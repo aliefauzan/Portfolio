@@ -94,7 +94,7 @@ export default function Contact() {
                 className="w-full h-full"
               >
                 <Card className="holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 h-full">
-                  <CardHeader>
+                  <CardHeader className="text-center">
                     <CardTitle>Contact Information</CardTitle>
                     <CardDescription>Feel free to reach out through any of these channels</CardDescription>
                   </CardHeader>
@@ -198,7 +198,7 @@ export default function Contact() {
                 className="w-full h-full"
               >
                 <Card className="holographic-border border-transparent bg-gradient-to-br from-background/80 to-primary/10 h-full">
-                <CardHeader>
+                <CardHeader className="text-center">
                   <CardTitle>Send a Message</CardTitle>
                   <CardDescription>I'll get back to you as soon as possible</CardDescription>
                 </CardHeader>
