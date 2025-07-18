@@ -60,9 +60,64 @@ export default function ExperienceEducation() {
               </TabsList>
 
               <TabsContent value="experience">
+
                 <div className="relative border-l-2 border-primary pl-8 pb-8">
                   <div className="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-0 floating-animation"></div>
 
+                  {/* Google Cloud Arcade Facilitator Experience */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -50, scale: 0.98 }}
+                    animate={inView ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: -50, scale: 0.98 }}
+                    transition={{ 
+                      duration: 0.7, 
+                      ease: [0.25, 0.1, 0.25, 1.0],
+                      delay: 0.05
+                    }}
+                    className="transform-gpu mb-8"
+                  >
+                    <Interactive3DCard>
+                      <GlareHover
+                        width="100%"
+                        height="auto"
+                        glareColor="#4285F4"
+                        glareOpacity={0.13}
+                        glareAngle={-30}
+                        glareSize={180}
+                        transitionDuration={700}
+                        background="transparent"
+                        borderColor="transparent"
+                        borderRadius="12px"
+                        className="w-full h-auto"
+                      >
+                        <Card className="relative overflow-hidden holographic-border border-transparent shadow-sm hover:shadow-xl transform-gpu transition-all duration-300">
+                          <CardHeader>
+                            <div className="flex flex-wrap justify-between items-start gap-2">
+                              <div>
+                                <CardTitle className="text-xl rainbow-text">
+                                  <span className="text-primary">Google Cloud Arcade Facilitator Program</span>
+                                </CardTitle>
+                                <CardDescription className="mt-2">Jul 2025 – Present · Remote</CardDescription>
+                              </div>
+                              <Badge className="bg-gradient-to-r from-blue-500 to-green-400 text-white border-0">
+                                Google Cloud Arcade Facilitator
+                              </Badge>
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <ul className="list-disc pl-5 space-y-2">
+                              <li>Selected as a Facilitator for the Google Cloud Arcade Program 2025 (Coding scholarship with gamification)</li>
+                              <li>Guiding participants to achieve milestones from July 15 to September 16, 2025</li>
+                              <li>Mentoring in cloud computing, AI, ML, and data engineering</li>
+                              <li>Helping participants earn digital badges and Arcade Points for rewards and Google merchandise</li>
+                              <li>Remote facilitation and support for all participants</li>
+                            </ul>
+                          </CardContent>
+                        </Card>
+                      </GlareHover>
+                    </Interactive3DCard>
+                  </motion.div>
+
+                  {/* Bangkit Academy Experience (existing) */}
                   <motion.div
                     initial={{ opacity: 0, x: -50, scale: 0.98 }}
                     animate={inView ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: -50, scale: 0.98 }}
@@ -182,7 +237,7 @@ export default function ExperienceEducation() {
                           <div className="mb-4">
                             <span className="font-semibold">GPA:</span> 
                             <span className="ml-2 font-bold text-lg bg-gradient-to-r from-green-500 to-blue-500 bg-clip-text text-transparent">
-                              3.64 / 4.00
+                              3.6 / 4.00
                             </span>
                           </div>
                           <div>
