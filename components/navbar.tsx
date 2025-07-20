@@ -38,6 +38,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (isOpen && isMobile) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isOpen, isMobile])
+
   return (
     <header
       className={cn(
@@ -79,26 +90,28 @@ export default function Navbar() {
         </div>
       </div>      {/* Mobile Navigation Menu */}
       {isOpen && isMobile && (
-        <div className="fixed inset-0 top-16 bg-background/98 backdrop-blur-sm z-40 p-4 border-t border-border/40">
-          <SimpleNav 
-            items={gooeyNavItems}
-            onItemClick={() => setIsOpen(false)}
-            className="mb-6"
-          />
-          <div className="border-t border-border/40 pt-4">
-            <Link
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              download
-              className="flex items-center text-lg font-medium p-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-all duration-200"
-              onClick={() => setIsOpen(false)}
-            >
-              <Download className="mr-3 h-5 w-5" />
-              Download Resume
-            </Link>
+        <>
+          <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-[99] p-4 flex flex-col border-t border-border/40 overflow-y-auto min-h-screen">
+            <SimpleNav 
+              items={gooeyNavItems}
+              onItemClick={() => setIsOpen(false)}
+              className="mb-6"
+            />
+            <div className="border-t border-border/40 pt-4">
+              <Link
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                className="flex items-center text-lg font-medium p-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-all duration-200"
+                onClick={() => setIsOpen(false)}
+              >
+                <Download className="mr-3 h-5 w-5" />
+                Download Resume
+              </Link>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   )

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
@@ -16,31 +16,45 @@ interface SimpleNavProps {
 }
 
 export default function SimpleNav({ items, onItemClick, className }: SimpleNavProps) {
-  const [activeIndex, setActiveIndex] = useState(0)
+  // Get the current hash from the URL
+  const [currentHash, setCurrentHash] = useState<string>(typeof window !== "undefined" ? window.location.hash || "#home" : "#home")
 
-  const handleClick = (index: number) => {
-    setActiveIndex(index)
+  useEffect(() => {
+    function updateHash() {
+      setCurrentHash(window.location.hash || "#home")
+    }
+    window.addEventListener("hashchange", updateHash)
+    return () => window.removeEventListener("hashchange", updateHash)
+  }, [])
+
+  const handleClick = (href: string) => {
+    if (typeof window !== "undefined") {
+      window.location.hash = href
+    }
     onItemClick?.()
   }
 
   return (
     <nav className={cn("flex flex-col space-y-2", className)}>
-      {items.map((item, index) => (
-        <Link
-          key={index}
-          href={item.href}
-          onClick={() => handleClick(index)}
-          className={cn(
-            "text-lg font-medium p-3 rounded-lg transition-all duration-200",
-            "hover:bg-primary/10 hover:text-primary",
-            activeIndex === index 
-              ? "bg-primary text-primary-foreground shadow-md" 
-              : "text-foreground"
-          )}
-        >
-          {item.label}
-        </Link>
-      ))}
+      {items.map((item, index) => {
+        const isActive = item.href === currentHash
+        return (
+          <Link
+            key={index}
+            href={item.href}
+            onClick={() => handleClick(item.href)}
+            className={cn(
+              "text-lg p-3 rounded-lg transition-all duration-200 font-normal",
+              "hover:bg-primary/10 hover:text-primary",
+              isActive
+                ? "bg-primary text-primary-foreground shadow-md font-bold !text-white"
+                : "text-foreground"
+            )}
+          >
+            {item.label}
+          </Link>
+        )
+      })}
     </nav>
   )
 }
