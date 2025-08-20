@@ -28,6 +28,38 @@ import Image from "next/image"
 // Updated projects array with image URLs and detailed information
 const projects = [
   {
+    title: "🎮 Arcade Team Calculator",
+    date: "August 2025",
+    description:
+      "A powerful Next.js web application designed to process Google Cloud Skills Boost CSV data and generate interactive leaderboards for arcade teams with automated profile scraping and PDF export capabilities.",
+    detailedDescription:
+      "Arcade Team Calculator is an intelligent leaderboard management system that transforms Google Cloud Skills Boost participant data into engaging, competitive visualizations. The application provides real-time web scraping, automated scoring calculations, and professional presentation with retro arcade aesthetics. Unlike basic spreadsheet tools, this application features automated extraction of achievement data from Google Cloud Skills Boost profiles, dynamic leaderboard generation with live updates, and professional PDF export with full color preservation.",
+    challenges:
+      "Implementing real-time profile scraping from Google Cloud Skills Boost profiles, creating an intelligent point calculation system with milestone bonuses, developing a comprehensive caching system to minimize redundant API calls, and designing a retro arcade aesthetic with pixel-perfect 8-bit inspired animations while maintaining responsive design across all devices.",
+    outcomes:
+      "Successfully delivered a fully functional leaderboard management system that automates the tedious process of calculating team scores. The application demonstrates expertise in full-stack web development, API integration, web scraping, and cloud deployment. Features include intelligent CSV processing, real-time profile scraping, dynamic scoring with milestone recognition, professional PDF generation, and beautiful retro arcade visualization.",
+    technologies: ["Google Cloud", "Web Scraping", "API Development", "PDF Generation","Next.js", "React", "TypeScript", "Tailwind CSS", "Docker", "Node.js", "Papa Parse", "Cheerio", "React PDF"],
+    links: { github: "https://github.com/aliefauzan/ArcadeCalculator", demo: "https://arcade-calculator-280204705798.asia-southeast2.run.app/upload" },
+    image: "/arcadeCalc.png", // Replace with actual image when available
+    imageAlt: "Arcade Calculator interface showing retro-themed leaderboard with colorful milestone badges and scoring system",
+  },
+  {
+    title: "🌱 Grooth - Smart Air Quality Route Planner",
+    date: "August 2025",
+    description:
+      "An intelligent route planning application that helps cyclists and commuters find the healthiest routes by analyzing real-time air quality data, prioritizing health while maintaining practical journey efficiency.",
+    detailedDescription:
+      "Grooth is a comprehensive route planning application that revolutionizes navigation by integrating real-time air quality data from WAQI (World Air Quality Index) with advanced routing algorithms. Unlike traditional navigation apps that only consider distance and time, Grooth prioritizes user health by recommending routes with better air quality while still being practical. The application features microservices architecture with separate frontend and backend services, interactive maps powered by Leaflet, and support for multiple routing profiles including cycling-regular, cycling-road, and driving alternatives.",
+    challenges:
+      "Integrating real-time air quality data from multiple sources with routing algorithms, developing a microservices architecture that scales efficiently, creating an intuitive user interface that displays complex environmental data clearly, implementing circular route generation with customizable parameters, and ensuring responsive performance across desktop and mobile devices while maintaining real-time data accuracy.",
+    outcomes:
+      "Created a fully functional route planning system that successfully combines environmental health data with practical navigation. The application provides users with three distinct route options (Good, Alternative, Bad) based on air quality analysis, features interactive maps with AQI-colored route segments, and includes comprehensive step-by-step directions with air quality data for each segment. Successfully deployed to Google Cloud Platform with containerized architecture for scalability.",
+    technologies: ["Docker", "Google Cloud Run", "Leaflet", "OpenRoute Service", "WAQI API", "REST API", "Express.js", "Microservices", "Container Registry", "Secret Manager", "Next.js", "React", "TypeScript", "Node.js", "Tailwind CSS"],
+    links: { github: "https://github.com/aliefauzan/Grooth", demo: "https://grooth-frontend-423004694624.asia-southeast2.run.app/" },
+    image: "/grooth.png", // Replace with actual image when available
+    imageAlt: "Grooth interface showing interactive map with air quality route visualization and comparison options",
+  },
+  {
     title: "Bangkit Project - PeduliPasal",
     date: "December 2024",
     description:

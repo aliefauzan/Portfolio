@@ -21,13 +21,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange enableColorScheme>
-          <AnimatedBackground />
-          <Navbar />
-          {children}
-        </ThemeProvider>
-      </body>
+        <body className={inter.className}>
+          {/* Google Analytics */}
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-LNWNCKVCS3"></script>
+          <script dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-LNWNCKVCS3');
+            `,
+          }} />
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange enableColorScheme>
+            <AnimatedBackground />
+            <Navbar />
+            {children}
+          </ThemeProvider>
+        </body>
     </html>
   )
 }
